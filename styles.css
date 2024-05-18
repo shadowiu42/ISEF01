@@ -1,0 +1,42 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #2C6FBB;
+}
+
+.navbar-nav .nav-link {
+    color: white;
+}
+
+.navbar-brand {
+    color: #C2E4EA;
+}
+
+.card {
+    background-color: #2C6FBB;
+    color: white;
+}
+
+.btn-edit,
+.btn-learn {
+    background-color: white;
+    color: #2C6FBB;
+}
+
+footer {
+    background-color: #2C6FBB;
+    color: white;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+@media (max-width: 767px) {
+    .card {
+        margin-bottom: 20px;
+    }
+}
