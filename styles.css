@@ -10,6 +10,9 @@ body {
     color: white;
 }
 
+.navbar-nav .nav-item.active .nav-link {
+    font-weight: bold;
+}
 
 .navbar-brand {
     color: #C2E4EA;
@@ -24,6 +27,11 @@ body {
 .btn-learn {
     background-color: white;
     color: #2C6FBB;
+}
+
+.add-card {
+    cursor: pointer;
+    background-color: #A9D0F5;
 }
 
 footer {
@@ -42,4 +50,6 @@ footer {
     }
 }
 
-
+.footer-spacing {
+    margin-bottom: 60px; /* Abstand nach unten */
+}

@@ -8,13 +8,10 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
     <link rel="icon" href="img/logo.png" type="image/png">
-    
 </head>
 
 <body>
-
-    <!--Test Änderung-->
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" href="#">
             <img src="img/logo.png" alt="QuizBuddy Logo" width="30" height="30" class="d-inline-block align-top">
             QuizBuddy
@@ -24,26 +21,28 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav mx-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Meine Stapel</a>
+                    <a class="nav-link" href="Index.HTML">Meine Stapel</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Kollaborativer Modus</a>
+                    <a class="nav-link" href="#kollaborativermodus.html">Kollaborativer Modus</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Forum</a>
+                    <a class="nav-link" href="forum.html">Forum</a>
                 </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><img src="https://via.placeholder.com/30" alt="User"> User 01</a>
+                    <a class="nav-link" href="#">User 01 <img src="img/profil.png" width="30" height="30" alt="User"></a>
                 </li>
             </ul>
         </div>
     </nav>
 
     <div class="container mt-4">
-        <div class="row">
-            <div class="col-md-4">
+        <div class="row" id="card-container">
+            <div class="col-md-4 mb-4">
                 <div class="card text-center">
                     <div class="card-body">
                         <h5 class="card-title">Allgemein Wissen</h5>
@@ -52,7 +51,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-4">
                 <div class="card text-center">
                     <div class="card-body">
                         <h5 class="card-title">Physik</h5>
@@ -61,12 +60,19 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-4">
                 <div class="card text-center">
                     <div class="card-body">
                         <h5 class="card-title">Mathe</h5>
                         <button class="btn btn-edit">Bearbeiten</button>
                         <button class="btn btn-learn">Lernen</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4 add-card-container">
+                <div class="card text-center add-card" data-toggle="modal" data-target="#addCardModal">
+                    <div class="card-body">
+                        <h5 class="card-title">+</h5>
                     </div>
                 </div>
             </div>
@@ -78,6 +84,29 @@
             <p>&copy; 2024 QuizBuddy. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Modal für Kachel hinzufügen -->
+    <div class="modal fade" id="addCardModal" tabindex="-1" aria-labelledby="addCardModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCardModalLabel">Neue Kachel hinzufügen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addCardForm">
+                        <div class="form-group">
+                            <label for="cardTitle">Titel der Kachel</label>
+                            <input type="text" class="form-control" id="cardTitle" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Hinzufügen</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
