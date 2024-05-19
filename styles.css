@@ -1,5 +1,6 @@
 body {
     font-family: Arial, sans-serif;
+    font-size: 16px;
 }
 
 .navbar {
@@ -32,6 +33,29 @@ body {
 .add-card {
     cursor: pointer;
     background-color: #A9D0F5;
+}
+
+/* Forum-spezifische Schriftgrößen-Anpassungen */
+#forum-sections, #questions-container {
+    font-size: 16px; /* Standard-Schriftgröße für das gesamte Forum */
+}
+
+#forum-sections h5, #questions-container h5 {
+    font-size: 18px; /* Schriftgröße für Überschriften im Forum */
+    font-weight: bold; /* Schrift fett für bessere Lesbarkeit */
+}
+
+#forum-sections p, #questions-container p {
+    font-size: 16px; /* Schriftgröße für Textabsätze im Forum */
+}
+
+#questions-container small {
+    font-size: 14px; /* Kleinere Schriftgröße für Zeitstempel */
+}
+
+#forum-sections input[type="text"], #questions-container input[type="text"],
+#forum-sections .btn, #questions-container .btn {
+    font-size: 16px; /* Schriftgröße für Eingabefelder und Buttons im Forum */
 }
 
 footer {
