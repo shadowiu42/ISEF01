@@ -78,3 +78,17 @@ footer {
 .footer-spacing {
     margin-bottom: 60px; /* Abstand nach unten */
 }
+
+.correct {
+    font-weight: bold;
+    color: green;
+}
+
+.btn-delete-question {
+    margin-top: 10px;
+}
+
+::placeholder {
+    color: #6c757d; /* Bootstrap's placeholder color */
+    opacity: 1;
+}
