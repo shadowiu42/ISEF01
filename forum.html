@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizBuddy Forum</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <link rel="icon" href="img/logo.png" type="image/png">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">
+            <img src="img/logo.png" alt="QuizBuddy Logo" width="30" height="30" class="d-inline-block align-top">
+            QuizBuddy
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Meine Stapel</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="kollaborativermodus.html">Kollaborativer Modus</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="forum.html">Forum</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">User 01 <img src="img/profil.png" width="30" height="30" alt="User"></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="list-group" id="forum-sections">
+                    <a href="#" class="list-group-item list-group-item-action active">Allgemein Wissen</a>
+                    <a href="#" class="list-group-item list-group-item-action">Physik</a>
+                    <a href="#" class="list-group-item list-group-item-action">Mathematik</a>
+                    <a href="#" class="list-group-item list-group-item-action">IT Projektmanagement</a>
+                </div>
+            </div>
+            <div class="col-md-6 footer-spacing" id="questions-container">
+
+
+                <!-- Beispiel-Fragen und Antworten -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5>User1 fragt: Wie hoch ist der Eiffelturm?</h5>
+                        <p>User2 Antwort: Der Eiffelturm ist 300 Meter hoch.</p>
+                        <p>User3 Antwort: Der Eiffelturm ist laut Wikipedia 320 Meter hoch.</p>
+                        <input type="text" class="form-control mb-2" placeholder="Schreibe hier deine Antwort">
+                        <button class="btn btn-primary btn-antworten">Antworten</button>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5>User2 fragt: Welches ist das am häufigsten vorkommende Element in der Erdatmosphäre?</h5>
+                        <p>User3 Antwort: Stickstoff ist das am häufigsten vorkommende Element und macht etwa 78% der Atmosphäre aus.</p>
+                        <p>User4 Antwort: Ja genau, es ist Stickstoff.</p>
+                        <input type="text" class="form-control mb-2" placeholder="Schreibe hier deine Antwort">
+                        <button class="btn btn-primary btn-antworten">Antworten</button>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5>User5 fragt: Wer hat das Telefon erfunden?</h5>
+                        <p>User1 Antwort: Das Telefon wurde von Alexander Graham Bell erfunden.</p>
+                        <input type="text" class="form-control mb-2" placeholder="Schreibe hier deine Antwort">
+                        <button class="btn btn-primary btn-antworten">Antworten</button>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5>User3 fragt: In welchem Jahr fand die erste Mondlandung statt?</h5>
+                        <p>User1 Antwort: Die erste Mondlandung fand im Jahr 1969 statt.</p>
+                        <input type="text" class="form-control mb-2" placeholder="Schreibe hier deine Antwort">
+                        <button class="btn btn-primary btn-antworten">Antworten</button>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form id="addQuestionForm">
+                            <div class="form-group">
+                                <input type="text" class="form-control mb-2" id="newQuestion" placeholder="Schreibe hier deine Frage" required>
+                                <button type="submit" class="btn btn-primary">Posten</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">?</h5>
+                        <p class="card-text">Du kannst die Antworten deiner Kollegen mit beantworten oder bearbeiten oder auch eigene Fragen stellen.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 QuizBuddy. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Button zum Leeren des Local Storage -->
+    <button id="clearStorage">Cache leeren</button>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="scripts.js"></script>
+
+    <script>
+        document.getElementById('clearStorage').addEventListener('click', function () {
+            localStorage.clear();
+            alert('Cache geleert!');
+            location.reload(); // Seite neu laden, um den Effekt zu sehen
+        });
+    </script>
+</body>
+</html>
