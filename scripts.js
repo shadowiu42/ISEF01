@@ -20,6 +20,7 @@ $(document).ready(function () {
         }
     });
 
+    
     $('#addQuestionForm').submit(function (event) {
         event.preventDefault();
         var newQuestion = $('#newQuestion').val();
