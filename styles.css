@@ -25,7 +25,8 @@ body {
 }
 
 .btn-edit,
-.btn-learn {
+.btn-learn,
+.btn-delete {
     background-color: white;
     color: #2C6FBB;
 }

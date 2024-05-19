@@ -77,7 +77,6 @@ $(document).ready(function() {
             var newAnswer = `<p>${answer.user} Antwort: ${answer.text} <small>${new Date(answer.timestamp).toLocaleString()}</small></p>`;
             $(newAnswer).insertBefore(answerInput);
             answerInput.val('');
-            saveQuestions(); // Speichern nach Hinzufügen einer Antwort
         }
     });
 });
