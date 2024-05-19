@@ -9,6 +9,7 @@ $(document).ready(function() {
         });
     }
 
+    
     function addQuestionToDOM(question) {
         var newQuestionCard = `
             <div class="card mb-4">

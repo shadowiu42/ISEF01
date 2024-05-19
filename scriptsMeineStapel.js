@@ -13,7 +13,6 @@ $(document).ready(function () {
             addStackToDOM(stack.title);
         });
     }
-
     // Funktion zum Speichern der Stapel
     function saveStacks() {
         var stacks = [];
