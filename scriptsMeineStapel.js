@@ -3,16 +3,39 @@ $(document).ready(function () {
     function loadStacks() {
         var storedStacks = JSON.parse(localStorage.getItem('stacks')) || [];
 
-        // Überprüfen, ob vordefinierte Stapel bereits vorhanden sind
+        console.log('Stored stacks before adding predefined:', storedStacks);
+
+        // Vordefinierte Stapel
         var predefinedStacks = ['Allgemein Wissen', 'Physik', 'Mathe'];
-        storedStacks = storedStacks.filter(function (stack) {
-            return !predefinedStacks.includes(stack.title) && stack.title !== '+';
+
+        // Überprüfen, ob vordefinierte Stapel bereits vorhanden sind
+        predefinedStacks.forEach(function (title) {
+            if (!storedStacks.some(stack => stack.title === title)) {
+                storedStacks.push({ title: title });
+            }
         });
 
+        // Entferne Duplikate in storedStacks
+        storedStacks = storedStacks.filter((value, index, self) =>
+            index === self.findIndex((t) => (
+                t.title === value.title
+            ))
+        );
+
+        console.log('Stored stacks after adding predefined and removing duplicates:', storedStacks);
+
         // Fügen Sie die gespeicherten Stapel dem DOM hinzu
+        $('#card-container').empty(); // Vorherige Kacheln entfernen
         storedStacks.forEach(function (stack) {
             addStackToDOM(stack.title);
         });
+
+        // Speichern Sie die aktualisierten Stapel
+        localStorage.setItem('stacks', JSON.stringify(storedStacks));
+        console.log('Final stored stacks:', storedStacks);
+
+        // "+" Kachel hinzufügen
+        addPlusCard();
     }
 
     // Funktion zum Speichern der Stapel
@@ -25,6 +48,7 @@ $(document).ready(function () {
             }
         });
         localStorage.setItem('stacks', JSON.stringify(stacks));
+        console.log('Stacks saved:', stacks);
     }
 
     // Funktion zum Hinzufügen eines Stapels zum DOM
@@ -41,7 +65,24 @@ $(document).ready(function () {
                 </div>
             </div>
         `;
-        $('#card-container .add-card-container').before(newCard);
+        $('#card-container').append(newCard); // Ändern zu append
+    }
+
+    // Funktion zum Hinzufügen der "+" Kachel
+    function addPlusCard() {
+        // Überprüfen, ob die "+" Kachel bereits existiert
+        if ($('#card-container .add-card-container').length === 0) {
+            var plusCard = `
+                <div class="col-md-4 mb-4 add-card-container">
+                    <div class="card text-center add-card" data-toggle="modal" data-target="#addCardModal">
+                        <div class="card-body">
+                            <h5 class="card-title">+</h5>
+                        </div>
+                    </div>
+                </div>
+            `;
+            $('#card-container').append(plusCard); // "+" Kachel hinzufügen
+        }
     }
 
     // Event Listener für das Hinzufügen eines neuen Stapels
@@ -59,9 +100,9 @@ $(document).ready(function () {
     // Event Listener für das Löschen eines Stapels
     $(document).on('click', '.btn-delete', function () {
         var cardTitle = $(this).siblings('.card-title').text();
-        var storedQuestions = JSON.parse(localStorage.getItem('questions')) || {};
+        var storedQuestions = JSON.parse(localStorage.getItem('questions_' + cardTitle)) || {};
         delete storedQuestions[cardTitle];
-        localStorage.setItem('questions', JSON.stringify(storedQuestions));
+        localStorage.setItem('questions_' + cardTitle, JSON.stringify(storedQuestions));
         $(this).closest('.col-md-4').remove();
         saveStacks(); // Speichern nach Löschen eines Stapels
     });
@@ -76,11 +117,15 @@ $(document).ready(function () {
 
     // Funktion zum Laden der Fragen für einen Stapel
     function loadQuestions(stackTitle) {
-        var storedQuestions = JSON.parse(localStorage.getItem('questions')) || {};
-        var questions = storedQuestions[stackTitle] || [];
-    
-        console.log('Questions loaded for', stackTitle, ':', questions); // Überprüfen der geladenen Fragen
-    
+        var storedQuestions = JSON.parse(localStorage.getItem('questions_' + stackTitle)) || [];
+        var questions = storedQuestions || [];
+
+        if (!Array.isArray(questions)) {
+            questions = [];
+        }
+
+        console.log('Questions loaded for', stackTitle, ':', questions);
+
         $('#questionsList').empty();
         questions.forEach(function (question) {
             addQuestionToDOM(question.question, question.answers);
@@ -89,9 +134,8 @@ $(document).ready(function () {
 
     // Funktion zum Speichern der Fragen für einen Stapel
     function saveQuestions(stackTitle) {
-        var storedQuestions = JSON.parse(localStorage.getItem('questions')) || {};
         var questions = [];
-    
+
         $('#questionsList .question-card').each(function () {
             var questionText = $(this).find('.question-text').text();
             var answers = [];
@@ -102,11 +146,10 @@ $(document).ready(function () {
             });
             questions.push({ question: questionText, answers: answers });
         });
-    
-        storedQuestions[stackTitle] = questions;
-        localStorage.setItem('questions', JSON.stringify(storedQuestions));
-    
-        console.log('Questions saved:', storedQuestions); // Überprüfen der gespeicherten Fragen
+
+        localStorage.setItem('questions_' + stackTitle, JSON.stringify(questions));
+
+        console.log('Questions saved for', stackTitle, ':', questions);
     }
 
     // Funktion zum Hinzufügen einer Frage zum DOM
@@ -147,7 +190,9 @@ $(document).ready(function () {
 
         if (question && answers.length >= 2) { // Mindestens zwei Antworten erforderlich
             addQuestionToDOM(question, answers);
-            saveQuestions($('#editCardModalLabel').text().replace('Bearbeite ', ''));
+            var stackTitle = $('#editCardModalLabel').text().replace('Bearbeite ', '');
+            saveQuestions(stackTitle);
+            console.log('Question saved for stack:', stackTitle);
             $('#question').val('');
             $('#editCardForm .answer-input').val('');
             $('#editCardForm .correct-answer').prop('checked', false);
@@ -181,7 +226,8 @@ $(document).ready(function () {
     // Event Listener für das Löschen einer Frage
     $(document).on('click', '.btn-delete-question', function () {
         $(this).closest('.question-card').remove();
-        saveQuestions($('#editCardModalLabel').text().replace('Bearbeite ', ''));
+        var stackTitle = $('#editCardModalLabel').text().replace('Bearbeite ', '');
+        saveQuestions(stackTitle);
     });
 
     // Laden der Stapel beim Start der Seite
