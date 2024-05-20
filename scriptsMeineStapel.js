@@ -158,7 +158,7 @@ $(document).ready(function () {
         answers.forEach(function (answer) {
             answersHTML += `
                 <div>
-                    <p class="answer-text ${answer.correct ? 'correct' : ''}">${answer.text}</p>
+                    <p class="answer-text ${answer.correct ? 'correct' : ''}">${answer.text} ${answer.correct ? '(Richtig)' : ''}</p>
                 </div>
             `;
         });
@@ -183,6 +183,7 @@ $(document).ready(function () {
         $('#editCardForm .answer-input').each(function () {
             var answerText = $(this).val();
             var isCorrect = $(this).siblings('.correct-answer').is(':checked');
+            console.log(`Answer: ${answerText}, Correct: ${isCorrect}`); // Konsolen-Log hinzugefügt
             if (answerText.trim() !== '') {
                 answers.push({ text: answerText, correct: isCorrect });
             }
@@ -209,13 +210,15 @@ $(document).ready(function () {
         }
     });
 
+    
     // Funktion zum Hinzufügen eines weiteren Antwortfelds
     function addAnswerField() {
+        var uniqueID = 'correctAnswer_' + Date.now(); // Eindeutige ID für jedes Antwortfeld
         var answerHTML = `
             <div class="form-group">
                 <input type="text" class="form-control answer-input" placeholder="Weitere Antworten hinzufügen">
                 <div class="form-check">
-                    <input class="form-check-input correct-answer" type="radio" name="correctAnswer">
+                    <input class="form-check-input correct-answer" type="radio" name="${uniqueID}">
                     <label class="form-check-label">Richtig</label>
                 </div>
             </div>
