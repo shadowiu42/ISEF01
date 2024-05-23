@@ -100,9 +100,7 @@ $(document).ready(function () {
     // Event Listener für das Löschen eines Stapels
     $(document).on('click', '.btn-delete', function () {
         var cardTitle = $(this).siblings('.card-title').text();
-        var storedQuestions = JSON.parse(localStorage.getItem('questions_' + cardTitle)) || {};
-        delete storedQuestions[cardTitle];
-        localStorage.setItem('questions_' + cardTitle, JSON.stringify(storedQuestions));
+        localStorage.removeItem('questions_' + cardTitle);
         $(this).closest('.col-md-4').remove();
         saveStacks(); // Speichern nach Löschen eines Stapels
     });
@@ -118,17 +116,12 @@ $(document).ready(function () {
     // Funktion zum Laden der Fragen für einen Stapel
     function loadQuestions(stackTitle) {
         var storedQuestions = JSON.parse(localStorage.getItem('questions_' + stackTitle)) || [];
-        var questions = storedQuestions || [];
 
-        if (!Array.isArray(questions)) {
-            questions = [];
-        }
-
-        console.log('Questions loaded for', stackTitle, ':', questions);
+        console.log('Questions loaded for', stackTitle, ':', storedQuestions);
 
         $('#questionsList').empty();
-        questions.forEach(function (question) {
-            addQuestionToDOM(question.question, question.answers);
+        storedQuestions.forEach(function (question) {
+            addQuestionToDOM(question.text, question.answers);
         });
     }
 
@@ -144,7 +137,7 @@ $(document).ready(function () {
                 var isCorrect = $(this).hasClass('correct');
                 answers.push({ text: answerText, correct: isCorrect });
             });
-            questions.push({ question: questionText, answers: answers });
+            questions.push({ text: questionText, answers: answers });
         });
 
         localStorage.setItem('questions_' + stackTitle, JSON.stringify(questions));
@@ -158,7 +151,7 @@ $(document).ready(function () {
         answers.forEach(function (answer) {
             answersHTML += `
                 <div>
-                    <p class="answer-text ${answer.correct ? 'correct' : ''}">${answer.text} ${answer.correct ? '(Richtig)' : ''}</p>
+                    <p class="answer-text ${answer.correct ? 'correct' : ''}" style="${answer.correct ? 'color: green;' : ''}">${answer.text}</p>
                 </div>
             `;
         });
@@ -210,7 +203,12 @@ $(document).ready(function () {
         }
     });
 
-    
+    // Event Listener für das Markieren einer einzigen richtigen Antwort
+    $(document).on('change', '.correct-answer', function () {
+        $('.correct-answer').not(this).prop('checked', false);
+        console.log(`Correct answer selected: ${$(this).siblings('.answer-input').val()}`);
+    });
+
     // Funktion zum Hinzufügen eines weiteren Antwortfelds
     function addAnswerField() {
         var uniqueID = 'correctAnswer_' + Date.now(); // Eindeutige ID für jedes Antwortfeld
@@ -218,7 +216,7 @@ $(document).ready(function () {
             <div class="form-group">
                 <input type="text" class="form-control answer-input" placeholder="Weitere Antworten hinzufügen">
                 <div class="form-check">
-                    <input class="form-check-input correct-answer" type="radio" name="${uniqueID}">
+                    <input class="form-check-input correct-answer" type="radio" name="correctAnswer">
                     <label class="form-check-label">Richtig</label>
                 </div>
             </div>
@@ -233,7 +231,109 @@ $(document).ready(function () {
         saveQuestions(stackTitle);
     });
 
+    // Event Listener für den Lernen-Button
+    $(document).on('click', '.btn-learn', function () {
+        var cardTitle = $(this).siblings('.card-title').text();
+        localStorage.setItem('currentLearningStack', cardTitle);
+        window.location.href = 'lernen.html';
+    });
+
+    if (window.location.pathname.includes('lernen.html')) {
+        loadLearningQuestions();
+    }
+
+    function loadLearningQuestions() {
+        var stackTitle = localStorage.getItem('currentLearningStack');
+        var storedQuestions = JSON.parse(localStorage.getItem('questions_' + stackTitle)) || [];
+        
+        if (storedQuestions.length === 0) {
+            $('#questionsContainer').append('<p>Keine Fragen in diesem Stapel.</p>');
+            $('#evaluateBtn').hide();
+            return;
+        }
+
+        storedQuestions.forEach((question, index) => {
+            var questionHtml = `
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">${question.text}</h5>
+                        ${question.answers.map((answer, i) => `
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="question${index}" id="answer${index}-${i}" value="${answer.text}">
+                                <label class="form-check-label" for="answer${index}-${i}">
+                                    ${answer.text}
+                                </label>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            $('#questionsContainer').append(questionHtml);
+        });
+
+        $('#evaluateBtn').click(evaluateAnswers);
+        $('#backBtn').click(function() {
+            window.location.href = 'index.html'; // Zurück zur Übersicht
+        });
+    }
+
+    function evaluateAnswers() {
+        var stackTitle = localStorage.getItem('currentLearningStack');
+        var storedQuestions = JSON.parse(localStorage.getItem('questions_' + stackTitle)) || [];
+        var correctCount = 0;
+
+        storedQuestions.forEach((question, index) => {
+            var selectedAnswer = $(`input[name="question${index}"]:checked`).val();
+            var correctAnswer = question.answers.find(answer => answer.correct).text;
+
+            if (selectedAnswer === correctAnswer) {
+                correctCount++;
+            }
+        });
+
+        alert(`Du hast ${correctCount} von ${storedQuestions.length} Fragen richtig beantwortet.`);
+    }
+
     // Laden der Stapel beim Start der Seite
     loadStacks();
     addAnswerField(); // Hinzufügen des ersten Antwortfelds beim Start der Seite
 });
+
+function saveQuestionToCache(question) {
+    let stackTitle = $('#editCardModalLabel').text().replace('Bearbeite ', '');
+    let questions = JSON.parse(localStorage.getItem('questions_' + stackTitle)) || [];
+    questions.push(question);
+    localStorage.setItem('questions_' + stackTitle, JSON.stringify(questions));
+    console.log('Questions saved to cache:', questions);
+}
+
+function displayQuestion(question) {
+    const questionsList = document.getElementById('questionsList');
+    const questionDiv = document.createElement('div');
+    questionDiv.classList.add('card', 'mb-2');
+
+    let answersHtml = '';
+    question.answers.forEach((answer) => {
+        console.log(`Display Answer: ${answer.text}, Correct: ${answer.correct}`); // Konsolen-Log hinzugefügt
+        answersHtml += `<p class="answer-text ${answer.correct ? 'correct' : ''}" style="${answer.correct ? 'color: green;' : ''}">${answer.text}</p>`;
+    });
+
+    questionDiv.innerHTML = `
+        <div class="card-body">
+            <h5 class="question-text">${question.text}</h5>
+            ${answersHtml}
+        </div>
+    `;
+
+    questionsList.appendChild(questionDiv);
+    console.log('Displayed question:', question);
+}
+
+function loadQuestionsFromCache() {
+    let stackTitle = $('#editCardModalLabel').text().replace('Bearbeite ', '');
+    let questions = JSON.parse(localStorage.getItem('questions_' + stackTitle)) || [];
+    console.log('Questions loaded from cache for', stackTitle, ':', questions);
+    questions.forEach(question => {
+        displayQuestion(question);
+    });
+}
