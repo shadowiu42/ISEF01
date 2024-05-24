@@ -1,3 +1,66 @@
+const defaultQuestions = {
+    'Allgemein Wissen': [
+        {
+            text: "Was ist die Hauptstadt von Deutschland?",
+            answers: [
+                { text: "Berlin", correct: true },
+                { text: "München", correct: false },
+                { text: "Hamburg", correct: false },
+                { text: "Köln", correct: false }
+            ]
+        },
+        {
+            text: "Welches Tier ist das größte Landraubtier?",
+            answers: [
+                { text: "Eisbär", correct: true },
+                { text: "Löwe", correct: false },
+                { text: "Tiger", correct: false },
+                { text: "Wolf", correct: false }
+            ]
+        }
+    ],
+    'Physik': [
+        {
+            text: "Was ist die Formel für die Berechnung der Geschwindigkeit?",
+            answers: [
+                { text: "v = s/t", correct: true },
+                { text: "v = m * a", correct: false },
+                { text: "v = E/q", correct: false },
+                { text: "v = F * r", correct: false }
+            ]
+        },
+        {
+            text: "Welches Teilchen hat eine negative Ladung?",
+            answers: [
+                { text: "Elektron", correct: true },
+                { text: "Proton", correct: false },
+                { text: "Neutron", correct: false },
+                { text: "Photon", correct: false }
+            ]
+        }
+    ],
+    'Mathe': [
+        {
+            text: "Was ist die Lösung der Gleichung 2x + 3 = 7?",
+            answers: [
+                { text: "x = 2", correct: true },
+                { text: "x = 3", correct: false },
+                { text: "x = 1", correct: false },
+                { text: "x = 4", correct: false }
+            ]
+        },
+        {
+            text: "Was ist die Fläche eines Kreises mit Radius r?",
+            answers: [
+                { text: "πr²", correct: true },
+                { text: "2πr", correct: false },
+                { text: "πr", correct: false },
+                { text: "2r", correct: false }
+            ]
+        }
+    ]
+};
+
 $(document).ready(function () {
     // Funktion zum Laden der gespeicherten Stapel
     function loadStacks() {
@@ -12,6 +75,7 @@ $(document).ready(function () {
         predefinedStacks.forEach(function (title) {
             if (!storedStacks.some(stack => stack.title === title)) {
                 storedStacks.push({ title: title });
+                localStorage.setItem('questions_' + title, JSON.stringify(defaultQuestions[title]));
             }
         });
 
@@ -132,7 +196,7 @@ $(document).ready(function () {
             var questionText = $(this).find('.question-text').text();
             var answers = [];
             $(this).find('.answer-text').each(function () {
-                var answerText = $(this).text().replace(' (Richtig)', '').trim();
+                var answerText = $(this).text();
                 var isCorrect = $(this).hasClass('correct');
                 answers.push({ text: answerText, correct: isCorrect });
             });
@@ -177,10 +241,8 @@ $(document).ready(function () {
         var answers = [];
         $('#editCardForm .answer-input').each(function () {
             var answerText = $(this).val().trim(); // Entfernt unnötige Leerzeichen
-            if (answerText !== '') { // Nur nicht-leere Antworten hinzufügen
-                var isCorrect = $(this).siblings('.form-check').find('.correct-answer').is(':checked');
-                answers.push({ text: answerText, correct: isCorrect });
-            }
+            var isCorrect = $(this).siblings('.form-check').find('.correct-answer').is(':checked');
+            answers.push({ text: answerText, correct: isCorrect });
         });
     
         if (question && answers.length) {
@@ -191,7 +253,6 @@ $(document).ready(function () {
             $('.answer-input').val('');
             $('.correct-answer').prop('checked', false);
             $('#additionalAnswers').empty();
-            addAnswerField(); // Hinzufügen des ersten Antwortfelds
         }
     });
 
@@ -315,7 +376,7 @@ function displayQuestion(question) {
     let answersHtml = '';
     question.answers.forEach((answer) => {
         console.log(`Display Answer: ${answer.text}, Correct: ${answer.correct}`); // Konsolen-Log hinzugefügt
-        answersHtml += `<p class="answer-text ${answer.correct ? 'correct' : ''}" style="${answer.correct ? 'color: black;' : ''}">${answer.text}${answer.correct ? ' (Richtig)' : ''}</p>`;
+        answersHtml += `<p class="answer-text ${answer.correct ? 'correct' : ''}" style="${answer.correct ? 'color: black;' : ''}">${answer.text}</p>`;
     });
 
     questionDiv.innerHTML = `
