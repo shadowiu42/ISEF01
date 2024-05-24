@@ -84,7 +84,9 @@ footer {
 
 .correct {
     font-weight: bold;
-    color: green;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .btn-delete-question {

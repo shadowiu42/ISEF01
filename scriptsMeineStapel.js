@@ -116,10 +116,9 @@ $(document).ready(function () {
     // Funktion zum Laden der Fragen für einen Stapel
     function loadQuestions(stackTitle) {
         var storedQuestions = JSON.parse(localStorage.getItem('questions_' + stackTitle)) || [];
-
         console.log('Questions loaded for', stackTitle, ':', storedQuestions);
-
-        $('#questionsList').empty();
+    
+        $('#questionsList').empty(); // Löscht den aktuellen Inhalt, um Duplikate zu vermeiden
         storedQuestions.forEach(function (question) {
             addQuestionToDOM(question.text, question.answers);
         });
@@ -133,7 +132,7 @@ $(document).ready(function () {
             var questionText = $(this).find('.question-text').text();
             var answers = [];
             $(this).find('.answer-text').each(function () {
-                var answerText = $(this).text();
+                var answerText = $(this).text().replace(' (Richtig)', '').trim();
                 var isCorrect = $(this).hasClass('correct');
                 answers.push({ text: answerText, correct: isCorrect });
             });
@@ -149,13 +148,16 @@ $(document).ready(function () {
     function addQuestionToDOM(question, answers) {
         var answersHTML = '';
         answers.forEach(function (answer) {
+            var correctText = answer.correct ? ' (Richtig)' : '';
             answersHTML += `
                 <div>
-                    <p class="answer-text ${answer.correct ? 'correct' : ''}" style="${answer.correct ? 'color: green;' : ''}">${answer.text}</p>
+                    <p class="answer-text ${answer.correct ? 'correct' : ''}" style="${answer.correct ? 'font-weight: bold; color: white; padding: 5px; border-radius: 5px;' : ''}">
+                        ${answer.text}${correctText}
+                    </p>
                 </div>
             `;
         });
-
+    
         var questionCard = `
             <div class="card mb-2 question-card">
                 <div class="card-body">
@@ -174,26 +176,23 @@ $(document).ready(function () {
         var question = $('#question').val();
         var answers = [];
         $('#editCardForm .answer-input').each(function () {
-            var answerText = $(this).val();
-            var isCorrect = $(this).siblings('.correct-answer').is(':checked');
-            console.log(`Answer: ${answerText}, Correct: ${isCorrect}`); // Konsolen-Log hinzugefügt
-            if (answerText.trim() !== '') {
-                answers.push({ text: answerText, correct: isCorrect });
-            }
+            var answerText = $(this).val().trim(); // Entfernt unnötige Leerzeichen
+            var isCorrect = $(this).siblings('.form-check').find('.correct-answer').is(':checked');
+            answers.push({ text: answerText, correct: isCorrect });
         });
-
-        if (question && answers.length >= 2) { // Mindestens zwei Antworten erforderlich
+    
+        if (question && answers.length) {
             addQuestionToDOM(question, answers);
             var stackTitle = $('#editCardModalLabel').text().replace('Bearbeite ', '');
             saveQuestions(stackTitle);
-            console.log('Question saved for stack:', stackTitle);
             $('#question').val('');
-            $('#editCardForm .answer-input').val('');
-            $('#editCardForm .correct-answer').prop('checked', false);
+            $('.answer-input').val('');
+            $('.correct-answer').prop('checked', false);
             $('#additionalAnswers').empty();
             addAnswerField(); // Hinzufügen des ersten Antwortfelds
         }
     });
+    
 
     // Event Listener für das automatische Hinzufügen eines weiteren Antwortfelds
     $(document).on('input', '.answer-input:last', function () {
@@ -315,7 +314,7 @@ function displayQuestion(question) {
     let answersHtml = '';
     question.answers.forEach((answer) => {
         console.log(`Display Answer: ${answer.text}, Correct: ${answer.correct}`); // Konsolen-Log hinzugefügt
-        answersHtml += `<p class="answer-text ${answer.correct ? 'correct' : ''}" style="${answer.correct ? 'color: green;' : ''}">${answer.text}</p>`;
+        answersHtml += `<p class="answer-text ${answer.correct ? 'correct' : ''}" style="${answer.correct ? 'color: black;' : ''}">${answer.text}${answer.correct ? ' (Richtig)' : ''}</p>`;
     });
 
     questionDiv.innerHTML = `

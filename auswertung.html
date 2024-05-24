@@ -7,6 +7,11 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
     <link rel="icon" href="img/logo.png" type="image/png">
+    <style>
+        .button-container {
+            margin-bottom: 40px; /* Abstand zum Footer */
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light">
@@ -48,8 +53,9 @@
                 <div id="details" class="mt-3">
                     <!-- Detaillierte Ergebnisse werden hier eingefügt -->
                 </div>
-                <div class="text-center mt-4">
+                <div class="text-center mt-4 button-container">
                     <button id="backBtn" class="btn btn-secondary">Zurück zur Übersicht</button>
+                    <button id="retryBtn" class="btn btn-primary">Übung wiederholen</button>
                 </div>
             </div>
         </div>
@@ -115,6 +121,14 @@
 
             $('#backBtn').click(function() {
                 window.location.href = 'index.html'; // Zurück zur Übersicht
+            });
+
+            $('#retryBtn').click(function() {
+                // Entferne die ausgewählten Antworten aus dem Local Storage
+                storedQuestions.forEach((question, index) => {
+                    localStorage.removeItem('selectedAnswer_' + index);
+                });
+                window.location.href = 'lernen.html'; // Zurück zur Lernseite
             });
         });
     </script>
