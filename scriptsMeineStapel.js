@@ -177,8 +177,10 @@ $(document).ready(function () {
         var answers = [];
         $('#editCardForm .answer-input').each(function () {
             var answerText = $(this).val().trim(); // Entfernt unnötige Leerzeichen
-            var isCorrect = $(this).siblings('.form-check').find('.correct-answer').is(':checked');
-            answers.push({ text: answerText, correct: isCorrect });
+            if (answerText !== '') { // Nur nicht-leere Antworten hinzufügen
+                var isCorrect = $(this).siblings('.form-check').find('.correct-answer').is(':checked');
+                answers.push({ text: answerText, correct: isCorrect });
+            }
         });
     
         if (question && answers.length) {
@@ -192,7 +194,6 @@ $(document).ready(function () {
             addAnswerField(); // Hinzufügen des ersten Antwortfelds
         }
     });
-    
 
     // Event Listener für das automatische Hinzufügen eines weiteren Antwortfelds
     $(document).on('input', '.answer-input:last', function () {
