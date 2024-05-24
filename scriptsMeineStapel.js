@@ -1,3 +1,66 @@
+const defaultQuestions = {
+    'Allgemein Wissen': [
+        {
+            text: "Was ist die Hauptstadt von Deutschland?",
+            answers: [
+                { text: "Berlin", correct: true },
+                { text: "München", correct: false },
+                { text: "Hamburg", correct: false },
+                { text: "Köln", correct: false }
+            ]
+        },
+        {
+            text: "Welches Tier ist das größte Landraubtier?",
+            answers: [
+                { text: "Eisbär", correct: true },
+                { text: "Löwe", correct: false },
+                { text: "Tiger", correct: false },
+                { text: "Wolf", correct: false }
+            ]
+        }
+    ],
+    'Physik': [
+        {
+            text: "Was ist die Formel für die Berechnung der Geschwindigkeit?",
+            answers: [
+                { text: "v = s/t", correct: true },
+                { text: "v = m * a", correct: false },
+                { text: "v = E/q", correct: false },
+                { text: "v = F * r", correct: false }
+            ]
+        },
+        {
+            text: "Welches Teilchen hat eine negative Ladung?",
+            answers: [
+                { text: "Elektron", correct: true },
+                { text: "Proton", correct: false },
+                { text: "Neutron", correct: false },
+                { text: "Photon", correct: false }
+            ]
+        }
+    ],
+    'Mathe': [
+        {
+            text: "Was ist die Lösung der Gleichung 2x + 3 = 7?",
+            answers: [
+                { text: "x = 2", correct: true },
+                { text: "x = 3", correct: false },
+                { text: "x = 1", correct: false },
+                { text: "x = 4", correct: false }
+            ]
+        },
+        {
+            text: "Was ist die Fläche eines Kreises mit Radius r?",
+            answers: [
+                { text: "πr²", correct: true },
+                { text: "2πr", correct: false },
+                { text: "πr", correct: false },
+                { text: "2r", correct: false }
+            ]
+        }
+    ]
+};
+
 $(document).ready(function () {
     // Funktion zum Laden der gespeicherten Stapel
     function loadStacks() {
@@ -12,6 +75,7 @@ $(document).ready(function () {
         predefinedStacks.forEach(function (title) {
             if (!storedStacks.some(stack => stack.title === title)) {
                 storedStacks.push({ title: title });
+                localStorage.setItem('questions_' + title, JSON.stringify(defaultQuestions[title]));
             }
         });
 
@@ -116,10 +180,9 @@ $(document).ready(function () {
     // Funktion zum Laden der Fragen für einen Stapel
     function loadQuestions(stackTitle) {
         var storedQuestions = JSON.parse(localStorage.getItem('questions_' + stackTitle)) || [];
-
         console.log('Questions loaded for', stackTitle, ':', storedQuestions);
-
-        $('#questionsList').empty();
+    
+        $('#questionsList').empty(); // Löscht den aktuellen Inhalt, um Duplikate zu vermeiden
         storedQuestions.forEach(function (question) {
             addQuestionToDOM(question.text, question.answers);
         });
@@ -149,13 +212,16 @@ $(document).ready(function () {
     function addQuestionToDOM(question, answers) {
         var answersHTML = '';
         answers.forEach(function (answer) {
+            var correctText = answer.correct ? ' (Richtig)' : '';
             answersHTML += `
                 <div>
-                    <p class="answer-text ${answer.correct ? 'correct' : ''}" style="${answer.correct ? 'color: green;' : ''}">${answer.text}</p>
+                    <p class="answer-text ${answer.correct ? 'correct' : ''}" style="${answer.correct ? 'font-weight: bold; color: white; padding: 5px; border-radius: 5px;' : ''}">
+                        ${answer.text}${correctText}
+                    </p>
                 </div>
             `;
         });
-
+    
         var questionCard = `
             <div class="card mb-2 question-card">
                 <div class="card-body">
@@ -174,24 +240,19 @@ $(document).ready(function () {
         var question = $('#question').val();
         var answers = [];
         $('#editCardForm .answer-input').each(function () {
-            var answerText = $(this).val();
-            var isCorrect = $(this).siblings('.correct-answer').is(':checked');
-            console.log(`Answer: ${answerText}, Correct: ${isCorrect}`); // Konsolen-Log hinzugefügt
-            if (answerText.trim() !== '') {
-                answers.push({ text: answerText, correct: isCorrect });
-            }
+            var answerText = $(this).val().trim(); // Entfernt unnötige Leerzeichen
+            var isCorrect = $(this).siblings('.form-check').find('.correct-answer').is(':checked');
+            answers.push({ text: answerText, correct: isCorrect });
         });
-
-        if (question && answers.length >= 2) { // Mindestens zwei Antworten erforderlich
+    
+        if (question && answers.length) {
             addQuestionToDOM(question, answers);
             var stackTitle = $('#editCardModalLabel').text().replace('Bearbeite ', '');
             saveQuestions(stackTitle);
-            console.log('Question saved for stack:', stackTitle);
             $('#question').val('');
-            $('#editCardForm .answer-input').val('');
-            $('#editCardForm .correct-answer').prop('checked', false);
+            $('.answer-input').val('');
+            $('.correct-answer').prop('checked', false);
             $('#additionalAnswers').empty();
-            addAnswerField(); // Hinzufügen des ersten Antwortfelds
         }
     });
 
@@ -315,7 +376,7 @@ function displayQuestion(question) {
     let answersHtml = '';
     question.answers.forEach((answer) => {
         console.log(`Display Answer: ${answer.text}, Correct: ${answer.correct}`); // Konsolen-Log hinzugefügt
-        answersHtml += `<p class="answer-text ${answer.correct ? 'correct' : ''}" style="${answer.correct ? 'color: green;' : ''}">${answer.text}</p>`;
+        answersHtml += `<p class="answer-text ${answer.correct ? 'correct' : ''}" style="${answer.correct ? 'color: black;' : ''}">${answer.text}</p>`;
     });
 
     questionDiv.innerHTML = `

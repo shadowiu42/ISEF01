@@ -84,7 +84,9 @@ footer {
 
 .correct {
     font-weight: bold;
-    color: green;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .btn-delete-question {
@@ -95,3 +97,18 @@ footer {
     color: #6c757d; /* Bootstrap's placeholder color */
     opacity: 1;
 }
+
+.form-check-input:disabled ~ .form-check-label, .form-check-input[disabled] ~ .form-check-label {
+    color: white;
+  }
+
+.text-danger {
+    color: #8A1933 !important;
+    font-weight: bold;
+
+}
+
+.text-success {
+    color: #28a745 !important;
+    font-weight: bold;
+  }
