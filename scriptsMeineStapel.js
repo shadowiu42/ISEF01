@@ -215,7 +215,7 @@ $(document).ready(function () {
             var correctText = answer.correct ? ' (Richtig)' : '';
             answersHTML += `
                 <div>
-                    <p class="answer-text ${answer.correct ? 'correct' : ''}" style="${answer.correct ? 'font-weight: bold; color: white; padding: 5px; border-radius: 5px;' : ''}">
+                    <p class="answer-text ${answer.correct ? 'correct' : ''}" style="${answer.correct ? 'font-weight: bold; color: black; padding: 5px; border-radius: 5px;' : ''}">
                         ${answer.text}${correctText}
                     </p>
                 </div>
