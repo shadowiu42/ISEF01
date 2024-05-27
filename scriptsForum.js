@@ -1,15 +1,14 @@
 $(document).ready(function () {
-    // Benutzer-Authentifizierung
     const users = [
         { username: 'User01', password: 'pass01' },
         { username: 'User02', password: 'pass02' }
     ];
 
-    let currentUser = users[0]; // Standardmäßiger Benutzer
+    let currentUser = users[0]; 
 
-    // Kategorien und Beiträge laden
     function loadCategories() {
         let categories = JSON.parse(localStorage.getItem('categories')) || [];
+        categories.sort(); // Alphabetische sortiren 
         $('#categories').empty();
         $('#categories').append(`<a href="#" class="list-group-item list-group-item-action category-item" data-category="all">Alle Kategorien</a>`);
         categories.forEach(category => {
@@ -32,24 +31,20 @@ $(document).ready(function () {
             $('#questions-list').append(`
                 <div class="list-group-item">
                     <div class="question-item" data-index="${index}">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h5>${question.text}</h5>
-                                <p><small>Kategorie: ${question.category}</small></p>
-                                <p><small>Erstellt von: ${question.user} am ${question.timestamp}</small></p>
-                            </div>
-                            <button class="btn btn-link toggle-answers">Antworten anzeigen</button>
-                        </div>
+                        <h5 class="question-title">${question.text}</h5>
+                        <p>${question.questionText}</p>
+                        <p class="question-meta">In: ${question.category} | Erstellt von: ${question.user} | Am: ${question.timestamp}</p>
+                        <hr>
+                        <button class="btn btn-link toggle-answers" data-visible="false">Antworten anzeigen</button>
                         <div class="answers-container" style="display: none;">
                             <div id="answers-list-${index}" class="list-group mt-2">
                                 <!-- Antworten werden hier eingefügt -->
                             </div>
-                            <form class="add-answer-form" data-index="${index}">
-                                <div class="form-group">
-                                    <label for="answerText-${index}">Antworttext</label>
-                                    <input type="text" class="form-control" id="answerText-${index}" required>
+                            <form class="add-answer-form mt-3" data-index="${index}">
+                                <div class="form-group d-flex">
+                                    <input type="text" class="form-control" id="answerText-${index}" placeholder="Antwort schreiben..." required>
+                                    <button type="submit" class="btn btn-primary ml-2">Absenden</button>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Antwort hinzufügen</button>
                             </form>
                         </div>
                     </div>
@@ -65,15 +60,14 @@ $(document).ready(function () {
         answers.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
         answers.forEach(answer => {
             answersList.append(`
-                <div class="list-group-item">
+                <div class="list-group-item answer-item">
                     <p>${answer.text}</p>
-                    <small>Geantwortet von: ${answer.user} am ${answer.timestamp}</small>
+                    <small class="answer-meta">Geantwortet von: ${answer.user} | Am: ${answer.timestamp}</small>
                 </div>
             `);
         });
     }
 
-    // Event Listener für das Hinzufügen einer neuen Kategorie
     $('#addCategoryForm').submit(function (event) {
         event.preventDefault();
         let categoryName = $('#categoryName').val().trim();
@@ -91,30 +85,31 @@ $(document).ready(function () {
         }
     });
 
-    // Event Listener für das Hinzufügen einer neuen Frage
     $('#addQuestionForm').submit(function (event) {
         event.preventDefault();
-        let questionText = $('#questionText').val().trim();
+        let questionTitle = $('#questionTitle').val().trim();
         let questionCategory = $('#questionCategory').val();
+        let questionText = $('#questionText').val().trim();
         let questions = JSON.parse(localStorage.getItem('questions')) || [];
         
-        if (questionText && questionCategory) {
+        if (questionTitle && questionCategory && questionText) {
             let newQuestion = {
-                text: questionText,
+                text: questionTitle,
                 category: questionCategory,
                 user: currentUser.username,
                 timestamp: new Date().toLocaleString(),
-                answers: []
+                answers: [],
+                questionText: questionText
             };
             questions.push(newQuestion);
             localStorage.setItem('questions', JSON.stringify(questions));
             loadQuestions();
             $('#addQuestionModal').modal('hide');
+            $('#questionTitle').val('');
             $('#questionText').val('');
         }
     });
 
-    // Event Listener für das Hinzufügen einer neuen Antwort
     $(document).on('submit', '.add-answer-form', function (event) {
         event.preventDefault();
         let index = $(this).data('index');
@@ -135,7 +130,6 @@ $(document).ready(function () {
         }
     });
 
-    // Event Listener für Kategorie-Auswahl bei neuen Fragen
     function updateQuestionCategoryOptions(categories) {
         $('#questionCategory').empty();
         categories.forEach(category => {
@@ -143,21 +137,25 @@ $(document).ready(function () {
         });
     }
 
-    // Benutzer wechseln
     $(document).on('click', '.user-switch', function () {
         let username = $(this).data('username');
         currentUser = users.find(user => user.username === username);
         $('#currentUser').text(currentUser.username);
     });
 
-    // Antworten ein- und ausklappen
     $(document).on('click', '.toggle-answers', function () {
         let answersContainer = $(this).closest('.question-item').find('.answers-container');
+        let isVisible = $(this).data('visible');
+        if (isVisible) {
+            $(this).text('Antworten anzeigen');
+        } else {
+            $(this).text('Antworten verbergen');
+        }
+        $(this).data('visible', !isVisible);
         answersContainer.slideToggle();
-        $(this).text(answersContainer.is(':visible') ? 'Antworten verbergen' : 'Antworten anzeigen');
     });
+    
 
-    // Kategorie filtern
     $(document).on('click', '.category-item', function (event) {
         event.preventDefault();
         let category = $(this).data('category');
@@ -166,7 +164,6 @@ $(document).ready(function () {
         $(this).addClass('active');
     });
 
-    // Daten zurücksetzen
     $('#resetData').click(function () {
         if (confirm('Möchten Sie wirklich alle Daten zurücksetzen?')) {
             localStorage.removeItem('categories');
@@ -176,7 +173,6 @@ $(document).ready(function () {
         }
     });
 
-    // Initiales Laden der Kategorien und Fragen
     loadCategories();
     loadQuestions();
 });
