@@ -15,7 +15,7 @@
             QuizBuddy
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -31,8 +31,14 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">User 01 <img src="img/profil.png" width="30" height="30" alt="User"></a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                        <span id="currentUser">User 01</span> <img id="profileImage" class="rounded-profile" src="img/profil.png" width="30" height="30" alt="User">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item user-switch" href="#" data-username="User01" data-profile="img/profil.png">User 01</a>
+                        <a class="dropdown-item user-switch" href="#" data-username="User02" data-profile="img/pb2.jpg">User 02</a>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -69,10 +75,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function () {
-            if (window.location.pathname.includes('lernen.html')) {
-                loadLearningQuestions();
-            }
-
             function loadLearningQuestions() {
                 var stackTitle = localStorage.getItem('currentLearningStack');
                 $('#learningTitle').text('Sie lernen den Stapel: ' + stackTitle);
@@ -114,6 +116,10 @@
                 $('#backBtn').click(function() {
                     window.location.href = 'index.html'; // Zurück zur Übersicht
                 });
+            }
+
+            if (window.location.pathname.includes('lernen.html')) {
+                loadLearningQuestions();
             }
         });
     </script>

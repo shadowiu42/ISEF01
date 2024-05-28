@@ -7,11 +7,6 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
     <link rel="icon" href="img/logo.png" type="image/png">
-    <style>
-        .button-container {
-            margin-bottom: 40px; /* Abstand zum Footer */
-        }
-    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light">
@@ -20,7 +15,7 @@
             QuizBuddy
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -36,8 +31,14 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">User 01 <img src="img/profil.png" width="30" height="30" alt="User"></a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                        <span id="currentUser">User 01</span> <img id="profileImage" class="rounded-profile" src="img/profil.png" width="30" height="30" alt="User">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item user-switch" href="#" data-username="User01" data-profile="img/profil.png">User 01</a>
+                        <a class="dropdown-item user-switch" href="#" data-username="User02" data-profile="img/pb2.jpg">User 02</a>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -73,51 +74,55 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function () {
-            var stackTitle = localStorage.getItem('currentLearningStack');
-            var storedQuestions = JSON.parse(localStorage.getItem('questions_' + stackTitle)) || [];
-            var correctCount = 0;
-            var totalCount = storedQuestions.length;
-            var detailsHtml = '';
+            function loadResults() {
+                var stackTitle = localStorage.getItem('currentLearningStack');
+                var storedQuestions = JSON.parse(localStorage.getItem('questions_' + stackTitle)) || [];
+                var correctCount = 0;
+                var totalCount = storedQuestions.length;
+                var detailsHtml = '';
 
-            storedQuestions.forEach((question, index) => {
-                var selectedAnswer = localStorage.getItem('selectedAnswer_' + index);
-                var correctAnswerObj = question.answers.find(answer => answer.correct);
-                if (!correctAnswerObj) {
-                    console.error('Correct answer not found for question:', question);
-                    return;
-                }
-                var correctAnswer = correctAnswerObj.text;
-                var isCorrect = selectedAnswer === correctAnswer;
-                var resultClass = isCorrect ? 'correct' : 'incorrect';
+                storedQuestions.forEach((question, index) => {
+                    var selectedAnswer = localStorage.getItem('selectedAnswer_' + index);
+                    var correctAnswerObj = question.answers.find(answer => answer.correct);
+                    if (!correctAnswerObj) {
+                        console.error('Correct answer not found for question:', question);
+                        return;
+                    }
+                    var correctAnswer = correctAnswerObj.text;
+                    var isCorrect = selectedAnswer === correctAnswer;
+                    var resultClass = isCorrect ? 'correct' : 'incorrect';
 
-                if (isCorrect) {
-                    correctCount++;
-                }
+                    if (isCorrect) {
+                        correctCount++;
+                    }
 
-                detailsHtml += `
-                    <div class="card mb-3 ${resultClass}">
-                        <div class="card-body">
-                            <h5 class="card-title">${question.text}</h5>
-                            ${question.answers.map((answer, i) => `
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="question${index}" id="answer${index}-${i}" value="${answer.text}" disabled ${selectedAnswer === answer.text ? 'checked' : ''}>
-                                    <label class="form-check-label ${answer.correct ? 'text-success font-weight-bold' : ''}" for="answer${index}-${i}">
-                                        ${answer.text}
-                                    </label>
-                                    ${selectedAnswer === answer.text && !answer.correct ? '<span class="text-danger"> (Ihre Antwort)</span>' : ''}
-                                    ${answer.correct ? '<span class="text-success"> (Richtige Antwort)</span>' : ''}
-                                </div>
-                            `).join('')}
-                            <div class="mt-2 ${isCorrect ? 'text-success' : 'text-danger'}">${isCorrect ? 'Richtig beantwortet' : 'Falsch beantwortet'}</div>
+                    detailsHtml += `
+                        <div class="card mb-3 ${resultClass}">
+                            <div class="card-body">
+                                <h5 class="card-title">${question.text}</h5>
+                                ${question.answers.map((answer, i) => `
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="question${index}" id="answer${index}-${i}" value="${answer.text}" disabled ${selectedAnswer === answer.text ? 'checked' : ''}>
+                                        <label class="form-check-label ${answer.correct ? 'text-success font-weight-bold' : ''}" for="answer${index}-${i}">
+                                            ${answer.text}
+                                        </label>
+                                        ${selectedAnswer === answer.text && !answer.correct ? '<span class="text-danger"> (Ihre Antwort)</span>' : ''}
+                                        ${answer.correct ? '<span class="text-success"> (Richtige Antwort)</span>' : ''}
+                                    </div>
+                                `).join('')}
+                                <div class="mt-2 ${isCorrect ? 'text-success' : 'text-danger'}">${isCorrect ? 'Richtig beantwortet' : 'Falsch beantwortet'}</div>
+                            </div>
                         </div>
-                    </div>
-                `;
-            });
+                    `;
+                });
 
-            $('#summary').html(`
-                <p>Sie haben ${correctCount} von ${totalCount} Fragen richtig beantwortet (${(correctCount / totalCount * 100).toFixed(2)}%).</p>
-            `);
-            $('#details').html(detailsHtml);
+                $('#summary').html(`
+                    <p>Sie haben ${correctCount} von ${totalCount} Fragen richtig beantwortet (${(correctCount / totalCount * 100).toFixed(2)}%).</p>
+                `);
+                $('#details').html(detailsHtml);
+            }
+
+            loadResults();
 
             $('#backBtn').click(function() {
                 window.location.href = 'index.html'; // Zurück zur Übersicht
@@ -125,6 +130,8 @@
 
             $('#retryBtn').click(function() {
                 // Entferne die ausgewählten Antworten aus dem Local Storage
+                var stackTitle = localStorage.getItem('currentLearningStack');
+                var storedQuestions = JSON.parse(localStorage.getItem('questions_' + stackTitle)) || [];
                 storedQuestions.forEach((question, index) => {
                     localStorage.removeItem('selectedAnswer_' + index);
                 });
