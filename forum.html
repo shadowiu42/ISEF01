@@ -33,11 +33,11 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-                        <span id="currentUser">User 01</span> <img src="img/profil.png" width="30" height="30" alt="User">
+                        <span id="currentUser">User 01</span> <img id="profileImage" class="rounded-profile" src="img/profil.png" width="30" height="30" alt="User">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item user-switch" href="#" data-username="User01">User 01</a>
-                        <a class="dropdown-item user-switch" href="#" data-username="User02">User 02</a>
+                        <a class="dropdown-item user-switch" href="#" data-username="User01" data-profile="img/profil.png">User 01</a>
+                        <a class="dropdown-item user-switch" href="#" data-username="User02" data-profile="img/pb2.jpg">User 02</a>
                     </div>
                 </li>
             </ul>
@@ -130,5 +130,18 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="scriptsForum.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('.user-switch').forEach(function(element) {
+                element.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    var newUser = event.target.getAttribute('data-username');
+                    var newProfileImage = event.target.getAttribute('data-profile');
+                    document.getElementById('currentUser').innerText = newUser;
+                    document.getElementById('profileImage').src = newProfileImage;
+                });
+            });
+        });
+    </script>
 </body>
 </html>
