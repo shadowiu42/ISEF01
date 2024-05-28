@@ -23,6 +23,10 @@ body {
     color: white;
 }
 
+.rounded-profile {
+    border-radius: 50%;
+}
+
 .card {
     background-color: white;
     color: #333;

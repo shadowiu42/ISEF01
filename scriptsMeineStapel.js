@@ -62,6 +62,7 @@ const defaultQuestions = {
 };
 
 $(document).ready(function () {
+
     // Funktion zum Laden der gespeicherten Stapel
     function loadStacks() {
         var storedStacks = JSON.parse(localStorage.getItem('stacks')) || [];
