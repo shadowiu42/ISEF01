@@ -62,6 +62,7 @@ const defaultQuestions = {
 };
 
 $(document).ready(function () {
+
     // Funktion zum Laden der gespeicherten Stapel
     function loadStacks() {
         var storedStacks = JSON.parse(localStorage.getItem('stacks')) || [];
@@ -196,9 +197,11 @@ $(document).ready(function () {
             var questionText = $(this).find('.question-text').text();
             var answers = [];
             $(this).find('.answer-text').each(function () {
-                var answerText = $(this).text();
+                var answerText = $(this).data('text');
                 var isCorrect = $(this).hasClass('correct');
-                answers.push({ text: answerText, correct: isCorrect });
+                if (answerText) {
+                    answers.push({ text: answerText, correct: isCorrect });
+                }
             });
             questions.push({ text: questionText, answers: answers });
         });
@@ -212,11 +215,10 @@ $(document).ready(function () {
     function addQuestionToDOM(question, answers) {
         var answersHTML = '';
         answers.forEach(function (answer) {
-            var correctText = answer.correct ? ' (Richtig)' : '';
             answersHTML += `
                 <div>
-                    <p class="answer-text ${answer.correct ? 'correct' : ''}" style="${answer.correct ? 'font-weight: bold; color: black; padding: 5px; border-radius: 5px;' : ''}">
-                        ${answer.text}${correctText}
+                    <p class="answer-text ${answer.correct ? 'correct' : ''}" data-text="${answer.text}" style="${answer.correct ? 'font-weight: bold; color: black; padding: 5px; border-radius: 5px;' : ''}">
+                        ${answer.text}${answer.correct ? ' (Richtig)' : ''}
                     </p>
                 </div>
             `;
@@ -242,7 +244,9 @@ $(document).ready(function () {
         $('#editCardForm .answer-input').each(function () {
             var answerText = $(this).val().trim(); // Entfernt unnötige Leerzeichen
             var isCorrect = $(this).siblings('.form-check').find('.correct-answer').is(':checked');
-            answers.push({ text: answerText, correct: isCorrect });
+            if (answerText) {
+                answers.push({ text: answerText, correct: isCorrect });
+            }
         });
     
         if (question && answers.length) {
@@ -376,7 +380,7 @@ function displayQuestion(question) {
     let answersHtml = '';
     question.answers.forEach((answer) => {
         console.log(`Display Answer: ${answer.text}, Correct: ${answer.correct}`); // Konsolen-Log hinzugefügt
-        answersHtml += `<p class="answer-text ${answer.correct ? 'correct' : ''}" style="${answer.correct ? 'color: black;' : ''}">${answer.text}</p>`;
+        answersHtml += `<p class="answer-text ${answer.correct ? 'correct' : ''}" data-text="${answer.text}" style="${answer.correct ? 'color: black;' : ''}">${answer.text}${answer.correct ? ' (Richtig)' : ''}</p>`;
     });
 
     questionDiv.innerHTML = `

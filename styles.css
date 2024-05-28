@@ -23,6 +23,10 @@ body {
     color: white;
 }
 
+.rounded-profile {
+    border-radius: 50%;
+}
+
 .card {
     background-color: white;
     color: #333;
@@ -153,6 +157,15 @@ footer {
 }
 
 .correct {
+    color: black;
+}
+
+.text-danger {
+    color: #dc3545 !important;
     font-weight: bold;
-    color: white;
+  }
+
+.text-success {
+    color: #28a745 !important;
+    font-weight: bold;
 }
