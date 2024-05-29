@@ -1,38 +1,105 @@
 $(document).ready(function () {
     const users = [
         { username: 'User01', password: 'pass01' },
-        { username: 'User02', password: 'pass02' }
+        { username: 'User02', password: 'pass02' },
+        { username: 'Besucher', password: 'guest' } 
     ];
 
     let currentUser = users[0]; 
 
+    const defaultCategories = ['Allgemein Wissen', 'Physik', 'Mathe'];
+
+    const defaultQuestions = {
+        'Allgemein Wissen': [
+            {
+                text: "Was ist die Hauptstadt von Deutschland?",
+                answers: [{ text: "Berlin", user: "User01", timestamp: new Date().toLocaleString() }]
+            },
+            {
+                text: "Welches Tier ist das größte Landraubtier?",
+                answers: [{ text: "Eisbär", user: "User02", timestamp: new Date().toLocaleString() }]
+            }
+        ],
+        'Physik': [
+            {
+                text: "Was ist die Formel für die Berechnung der Geschwindigkeit?",
+                answers: [{ text: "v = s/t", user: "User01", timestamp: new Date().toLocaleString() }]
+            },
+            {
+                text: "Welches Teilchen hat eine negative Ladung?",
+                answers: [{ text: "Elektron", user: "User02", timestamp: new Date().toLocaleString() }]
+            }
+        ],
+        'Mathe': [
+            {
+                text: "Was ist die Lösung der Gleichung 2x + 3 = 7?",
+                answers: [{ text: "x = 2", user: "User01", timestamp: new Date().toLocaleString() }]
+            },
+            {
+                text: "Was ist die Fläche eines Kreises mit Radius r?",
+                answers: [{ text: "πr²", user: "User02", timestamp: new Date().toLocaleString() }]
+            }
+        ]
+    };
+
     function loadCategories() {
-        let categories = JSON.parse(localStorage.getItem('categories')) || [];
-        categories.sort(); // Alphabetische sortiren 
-        $('#categories').empty();
-        $('#categories').append(`<a href="#" class="list-group-item list-group-item-action category-item" data-category="all">Alle Kategorien</a>`);
-        categories.forEach(category => {
-            $('#categories').append(`<a href="#" class="list-group-item list-group-item-action category-item" data-category="${category}">${category}</a>`);
-        });
-        updateQuestionCategoryOptions(categories);
+    // Verwenden Sie die vordefinierten Kategorien anstelle von LocalStorage
+    let categories = JSON.parse(localStorage.getItem('categories')) || defaultCategories.slice();
+    categories.sort(); // Alphabetische sortiren 
+    $('#categories').empty();
+    $('#categories').append(`<a href="#" class="list-group-item list-group-item-action category-item" data-category="all">Alle Kategorien</a>`);
+    categories.forEach(category => {
+        $('#categories').append(`<a href="#" class="list-group-item list-group-item-action category-item" data-category="${category}">${category}</a>`);
+    });
+    updateQuestionCategoryOptions(categories);
     }
+
+    // Update des Event Handlers für das Hinzufügen einer Kategorie
+    $('#addCategoryForm').submit(function (event) {
+        event.preventDefault();
+        let categoryName = $('#categoryName').val().trim();
+        if (categoryName) {
+            let categories = JSON.parse(localStorage.getItem('categories')) || defaultCategories.slice();
+            if (!categories.includes(categoryName)) {
+                categories.push(categoryName);
+                localStorage.setItem('categories', JSON.stringify(categories));
+                loadCategories();
+                $('#addCategoryModal').modal('hide');
+                $('#categoryName').val('');
+            } else {
+                alert('Diese Kategorie existiert bereits.');
+            }
+        }
+    });
 
     function loadQuestions(categoryFilter = 'all') {
         let questions = JSON.parse(localStorage.getItem('questions')) || [];
+    
+        // Fügen Sie die vordefinierten Fragen hinzu, wenn der LocalStorage leer ist
+        if (questions.length === 0) {
+            Object.keys(defaultQuestions).forEach(category => {
+                defaultQuestions[category].forEach(question => {
+                    question.category = category;
+                    questions.push(question);
+                });
+            });
+            localStorage.setItem('questions', JSON.stringify(questions));
+        }
+    
         $('#questions-list').empty();
-
+    
         if (categoryFilter !== 'all') {
             questions = questions.filter(question => question.category === categoryFilter);
         }
-
+    
         questions.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-
+    
         questions.forEach((question, index) => {
             $('#questions-list').append(`
                 <div class="list-group-item">
                     <div class="question-item" data-index="${index}">
                         <h5 class="question-title">${question.text}</h5>
-                        <p>${question.questionText}</p>
+                        <p>${question.questionText || ''}</p>
                         <p class="question-meta">In: ${question.category} | Erstellt von: ${question.user} | Am: ${question.timestamp}</p>
                         <hr>
                         <button class="btn btn-link toggle-answers" data-visible="false">Antworten anzeigen</button>
@@ -67,23 +134,6 @@ $(document).ready(function () {
             `);
         });
     }
-
-    $('#addCategoryForm').submit(function (event) {
-        event.preventDefault();
-        let categoryName = $('#categoryName').val().trim();
-        if (categoryName) {
-            let categories = JSON.parse(localStorage.getItem('categories')) || [];
-            if (!categories.includes(categoryName)) {
-                categories.push(categoryName);
-                localStorage.setItem('categories', JSON.stringify(categories));
-                loadCategories();
-                $('#addCategoryModal').modal('hide');
-                $('#categoryName').val('');
-            } else {
-                alert('Diese Kategorie existiert bereits.');
-            }
-        }
-    });
 
     $('#addQuestionForm').submit(function (event) {
         event.preventDefault();
