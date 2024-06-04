@@ -169,3 +169,128 @@ footer {
     color: #28a745 !important;
     font-weight: bold;
 }
+
+
+/* Game Mode */
+
+#questionNav, #questionNavEnd {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+#questionNav h5, #questionNavEnd h5 {
+    margin-bottom: 15px;
+}
+
+#questionButtonsContainer, #questionButtonsContainerEnd {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.question-container {
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.answers-container .btn {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.progress {
+    height: 20px;
+}
+
+.progress-bar {
+    transition: width 1s linear;
+}
+
+.question-container {
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.answers-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.answer-btn {
+    width: calc(50% - 10px);
+    height: 100px;
+    margin: 5px;
+    padding: 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.answer-btn.correct {
+    background-color: green;
+    color: white;
+}
+
+.answer-btn.wrong {
+    background-color: red;
+    color: white;
+}
+
+.progress {
+    height: 20px;
+}
+
+.progress-bar {
+    transition: width 1s linear;
+}
+
+
+#questionNav {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+#questionNav h5 {
+    margin-bottom: 15px;
+}
+
+#questionButtonsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.question-button {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border: 1px solid #333;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.question-button.active {
+    background-color: #333;
+    color: white;
+}
+
+.question-button.correct {
+    background-color: green;
+    color: white;
+}
+
+.question-button.wrong {
+    background-color: red;
+    color: white;
+}
