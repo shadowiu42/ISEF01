@@ -17,6 +17,24 @@ const defaultQuestions = {
                 { text: "Tiger", correct: false },
                 { text: "Wolf", correct: false }
             ]
+        },
+        {
+            text: "Wer schrieb 'Faust'?",
+            answers: [
+                { text: "Johann Wolfgang von Goethe", correct: true },
+                { text: "Friedrich Schiller", correct: false },
+                { text: "Gotthold Ephraim Lessing", correct: false },
+                { text: "Heinrich Heine", correct: false }
+            ]
+        },
+        {
+            text: "Welches Land ist für das Essen 'Sushi' bekannt?",
+            answers: [
+                { text: "Japan", correct: true },
+                { text: "China", correct: false },
+                { text: "Thailand", correct: false },
+                { text: "Vietnam", correct: false }
+            ]
         }
     ],
     'Physik': [
@@ -36,6 +54,24 @@ const defaultQuestions = {
                 { text: "Proton", correct: false },
                 { text: "Neutron", correct: false },
                 { text: "Photon", correct: false }
+            ]
+        },
+        {
+            text: "Was beschreibt das Ohmsche Gesetz?",
+            answers: [
+                { text: "Spannung = Widerstand * Strom", correct: true },
+                { text: "Spannung = Masse * Beschleunigung", correct: false },
+                { text: "Kraft = Masse * Beschleunigung", correct: false },
+                { text: "Leistung = Spannung * Strom", correct: false }
+            ]
+        },
+        {
+            text: "Welche Farbe hat ein Photon?",
+            answers: [
+                { text: "Photonen haben keine Farbe", correct: true },
+                { text: "Rot", correct: false },
+                { text: "Blau", correct: false },
+                { text: "Grün", correct: false }
             ]
         }
     ],
@@ -57,9 +93,28 @@ const defaultQuestions = {
                 { text: "πr", correct: false },
                 { text: "2r", correct: false }
             ]
+        },
+        {
+            text: "Was ist die Ableitung von x²?",
+            answers: [
+                { text: "2x", correct: true },
+                { text: "x", correct: false },
+                { text: "x²", correct: false },
+                { text: "1", correct: false }
+            ]
+        },
+        {
+            text: "Was ist die Summe der Winkel in einem Dreieck?",
+            answers: [
+                { text: "180 Grad", correct: true },
+                { text: "90 Grad", correct: false },
+                { text: "360 Grad", correct: false },
+                { text: "270 Grad", correct: false }
+            ]
         }
     ]
 };
+
 
 $(document).ready(function () {
 
