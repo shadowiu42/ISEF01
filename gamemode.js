@@ -21,7 +21,19 @@ $(document).ready(function () {
                 </div>
             `;
             $('#stacksContainer').append(stackCard);
+            initializeDefaultScoreHistory(stack.title); // Initialisiere die Standard-Score-Historie
         });
+    }
+
+    function initializeDefaultScoreHistory(stackTitle) {
+        if (!localStorage.getItem('scoreHistory_' + stackTitle)) {
+            var defaultScores = [
+                { date: '2024-06-01', score: Math.floor(Math.random() * 3000) + 100 },
+                { date: '2024-06-02', score: Math.floor(Math.random() * 3000) + 100 },
+                { date: '2024-06-03', score: Math.floor(Math.random() * 3000) + 100 }
+            ];
+            localStorage.setItem('scoreHistory_' + stackTitle, JSON.stringify(defaultScores));
+        }
     }
 
     function loadGameQuestions(stackTitle) {
@@ -61,12 +73,13 @@ $(document).ready(function () {
         });
     }
 
-    function loadScoreHistory() {
+    function loadScoreHistory(latestScoreDate, latestScore) {
         $('#scoreHistory').empty();
         scoreHistory.sort((a, b) => b.score - a.score);
         scoreHistory.forEach((entry) => {
+            var listItemClass = entry.date === latestScoreDate && entry.score === latestScore ? 'list-group-item latest-score' : 'list-group-item';
             var listItem = `
-                <li class="list-group-item">${formatDate(entry.date)}: ${entry.score}</li>
+                <li class="${listItemClass}">${formatDate(entry.date)}: ${entry.score}</li>
             `;
             $('#scoreHistory').append(listItem);
         });
@@ -165,14 +178,19 @@ $(document).ready(function () {
     function endGame() {
         $('#gameContainer').hide();
         $('#endGameContainer').show();
-        $('#endGameScore').text(`Game Over! Your score: ${score}`);
+
+        var highScore = scoreHistory.length > 0 ? Math.max(...scoreHistory.map(entry => entry.score)) : 0;
+        var isHighScore = score > highScore;
+        var endGameText = isHighScore ? `Neuer High Score! ${score}` : `Game Over! Your score: ${score}`;
+
+        $('#endGameScore').text(endGameText);
 
         var currentDate = new Date().toISOString().split('T')[0]; // Format YYYY-MM-DD
         if (!scoreHistory.some(entry => entry.date === currentDate && entry.score === score)) {
             scoreHistory.push({ date: currentDate, score: score });
             localStorage.setItem('scoreHistory_' + currentStackTitle, JSON.stringify(scoreHistory));
         }
-        loadScoreHistory();
+        loadScoreHistory(currentDate, score); // Übergeben Sie das aktuelle Datum und den Score, um den neuesten Score hervorzuheben
         generateEndQuestionNav();
     }
 
@@ -187,6 +205,9 @@ $(document).ready(function () {
     });
 
     $('#selectStackBtn').click(function() {
+        currentQuestionIndex = 0;
+        score = 0;
+        answersGiven = [];
         $('#endGameContainer').hide();
         $('#stackSelectionContainer').show();
     });
