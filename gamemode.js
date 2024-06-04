@@ -95,6 +95,13 @@ $(document).ready(function () {
         currentStackTitle = selectedStackTitle;
         localStorage.setItem('currentGameStack', selectedStackTitle);
         $('#startGameBtn').prop('disabled', false);
+
+        $('.card').removeClass('selected');
+        $('.btn-select-stack').removeClass('selected');
+
+        $(this).closest('.card').addClass('selected');
+        $(this).addClass('selected');
+
         loadGameQuestions(selectedStackTitle);
     });
 
