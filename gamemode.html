@@ -110,5 +110,19 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="gamemode.js"></script>
     <script src="scriptsMeineStapel.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('.user-switch').forEach(function(element) {
+                element.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    var newUser = event.target.getAttribute('data-username');
+                    var newProfileImage = event.target.getAttribute('data-profile');
+                    document.getElementById('currentUser').innerText = newUser;
+                    document.getElementById('profileImage').src = newProfileImage;
+                    localStorage.setItem('currentUser', newUser);
+                });
+            });
+        });
+    </script>
 </body>
 </html>

@@ -94,7 +94,6 @@ body {
 }
 
 .answers-container {
-    background-color: #f8f9fa;
     padding: 10px;
     border-radius: 5px;
     margin-top: 10px;
@@ -261,7 +260,7 @@ footer {
 }
 
 .latest-score {
-    background-color: #e0f7fa; /* Leicht blauer Hintergrund */
+    background-color: #87cefa; /* Leicht blauer Hintergrund */
     border-left: 5px solid #007bff; /* Blaue Markierung am linken Rand */
 }
 

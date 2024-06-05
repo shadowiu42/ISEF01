@@ -8,6 +8,22 @@ $(document).ready(function () {
     var currentStackTitle = '';
     var scoreHistory = [];
 
+    // Initialisieren Sie den aktuellen Benutzer beim Laden der Seite
+    var currentUser = localStorage.getItem('currentUser') || $('#currentUser').text();
+    $('#currentUser').text(currentUser); // Benutzername im Dropdown anzeigen
+
+    // Funktion zum Speichern des aktuellen Benutzers im LocalStorage
+    function updateCurrentUser(userName) {
+        localStorage.setItem('currentUser', userName);
+    }
+
+    // Event-Handler für den Benutzerwechsel im Dropdown
+    $('.user-switch').click(function() {
+        var newUserName = $(this).data('username');
+        $('#currentUser').text(newUserName);
+        updateCurrentUser(newUserName);
+    });
+
     function loadStacks() {
         var storedStacks = JSON.parse(localStorage.getItem('stacks')) || [];
         $('#stacksContainer').empty();
@@ -25,12 +41,17 @@ $(document).ready(function () {
         });
     }
 
+    function getRandomUserName() {
+        var userNames = ['User01', 'User02', 'User03', 'User04', 'User05'];
+        return userNames[Math.floor(Math.random() * userNames.length)];
+    }
+
     function initializeDefaultScoreHistory(stackTitle) {
         if (!localStorage.getItem('scoreHistory_' + stackTitle)) {
             var defaultScores = [
-                { date: '2024-06-01', score: Math.floor(Math.random() * 3000) + 100 },
-                { date: '2024-06-02', score: Math.floor(Math.random() * 3000) + 100 },
-                { date: '2024-06-03', score: Math.floor(Math.random() * 3000) + 100 }
+                { date: '2024-06-01', user: getRandomUserName(), score: Math.floor(Math.random() * 3000) + 1000 },
+                { date: '2024-06-02', user: getRandomUserName(), score: Math.floor(Math.random() * 3000) + 1000 },
+                { date: '2024-06-03', user: getRandomUserName(), score: Math.floor(Math.random() * 3000) + 1000 }
             ];
             localStorage.setItem('scoreHistory_' + stackTitle, JSON.stringify(defaultScores));
         }
@@ -79,7 +100,7 @@ $(document).ready(function () {
         scoreHistory.forEach((entry) => {
             var listItemClass = entry.date === latestScoreDate && entry.score === latestScore ? 'list-group-item latest-score' : 'list-group-item';
             var listItem = `
-                <li class="${listItemClass}">${formatDate(entry.date)}: ${entry.score}</li>
+                <li class="${listItemClass}">Der Nutzer: ${entry.user} hat am ${formatDate(entry.date)} folgende Punktzahl erreicht: ${entry.score}</li>
             `;
             $('#scoreHistory').append(listItem);
         });
@@ -194,37 +215,25 @@ $(document).ready(function () {
 
         var currentDate = new Date().toISOString().split('T')[0]; // Format YYYY-MM-DD
         if (!scoreHistory.some(entry => entry.date === currentDate && entry.score === score)) {
-            scoreHistory.push({ date: currentDate, score: score });
+            scoreHistory.push({ date: currentDate, user: currentUser, score: score });
             localStorage.setItem('scoreHistory_' + currentStackTitle, JSON.stringify(scoreHistory));
         }
         loadScoreHistory(currentDate, score); // Übergeben Sie das aktuelle Datum und den Score, um den neuesten Score hervorzuheben
         generateEndQuestionNav();
     }
 
-    $('#retryBtn').click(function() {
-        currentQuestionIndex = 0;
-        score = 0;
-        answersGiven = [];
-        $('#endGameContainer').hide();
-        $('#gameContainer').show();
-        generateQuestionNav(); // Quiz-Navigation zurücksetzen
-        loadNextQuestion();
-    });
-
-    $('#selectStackBtn').click(function() {
+    $('#restartGameBtn').click(function() {
         currentQuestionIndex = 0;
         score = 0;
         answersGiven = [];
         $('#endGameContainer').hide();
         $('#stackSelectionContainer').show();
+        $('#startGameBtn').prop('disabled', true);
     });
 
-    if (window.location.pathname.includes('gamemode.html')) {
-        loadStacks();
-        var selectedStackTitle = localStorage.getItem('currentGameStack');
-        if (selectedStackTitle) {
-            currentStackTitle = selectedStackTitle;
-            loadGameQuestions(selectedStackTitle);
-        }
-    }
+    $('#backToOverviewBtn').click(function() {
+        window.location.href = 'index.html';
+    });
+
+    loadStacks();
 });
