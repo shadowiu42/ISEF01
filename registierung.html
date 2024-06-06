@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizBuddy</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <link rel="icon" href="img/logo.png" type="image/png">
+</head>
+<body>
+
+    <section class="preloader">
+        <div class="spinner">
+            <span class="sk-inner-circle"></span>
+        </div>
+    </section>
+
+    <main>
+
+        <section class="sign-in-form section-padding">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-8 mx-auto col-12">
+
+                        <h1 class="hero-title text-center mb-5">Sign Up</h1>
+
+                        <div class="social-login d-flex flex-column w-50 m-auto">
+                            
+                            <a href="#" class="btn custom-btn social-btn mb-4">
+                                <i class="bi bi-google me-3"></i>
+                                Weiter mit Google
+                            </a>
+
+                            <a href="#" class="btn custom-btn social-btn">
+                                <i class="bi bi-facebook me-3"></i>
+                                Weiter mit IU
+                            </a>
+                        </div>
+
+                        <div class="div-separator w-50 m-auto my-5"><span>or</span></div>
+
+                        <div class="row">
+                            <div class="col-lg-8 col-11 mx-auto">
+                                <form role="form" method="post">
+
+                                    <div class="form-floating">
+                                        <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required>
+                                        <label for="email">E-Mail addresse</label>
+                                    </div>
+
+                                    <div class="form-floating my-4">
+                                        <input type="password" name="password" id="password" pattern="[0-9a-zA-Z]{4,10}" class="form-control" placeholder="Password" required>
+                                        <label for="password">Password</label>
+                                    </div>
+
+                                    <div class="form-floating">
+                                        <input type="password" name="confirm_password" id="confirm_password" pattern="[0-9a-zA-Z]{4,10}" class="form-control" placeholder="Password" required>
+                                        <label for="confirm_password">Password Confirmation</label>
+                                    </div>
+
+                                    <button type="submit" class="btn custom-btn form-control mt-4 mb-3">
+                                        Account erstellen
+                                    </button>
+
+                                    <p class="text-center">Du hast bereits ein Konto? Bitte <a href="Index.HTML">Anmelden</a></p>
+
+                                </form>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="scriptsMeineStapel.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('.user-switch').forEach(function(element) {
+                element.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    var newUser = event.target.getAttribute('data-username');
+                    var newProfileImage = event.target.getAttribute('data-profile');
+                    document.getElementById('currentUser').innerText = newUser;
+                    document.getElementById('profileImage').src = newProfileImage;
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

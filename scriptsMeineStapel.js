@@ -115,13 +115,10 @@ const defaultQuestions = {
     ]
 };
 
-
 $(document).ready(function () {
-
     // Funktion zum Laden der gespeicherten Stapel
     function loadStacks() {
         var storedStacks = JSON.parse(localStorage.getItem('stacks')) || [];
-
         console.log('Stored stacks before adding predefined:', storedStacks);
 
         // Vordefinierte Stapel
