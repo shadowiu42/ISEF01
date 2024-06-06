@@ -94,7 +94,6 @@ body {
 }
 
 .answers-container {
-    background-color: #f8f9fa;
     padding: 10px;
     border-radius: 5px;
     margin-top: 10px;
@@ -163,47 +162,141 @@ footer {
 .text-danger {
     color: #dc3545 !important;
     font-weight: bold;
-}
+  }
 
 .text-success {
     color: #28a745 !important;
     font-weight: bold;
 }
 
-/* Form Styles */
-.section-padding {
-    padding: 60px 0;
-}
 
-.sign-in-form {
-    padding: 60px 0;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+/* Game Mode */
+/* Game Mode */
 
-.hero-title {
-    font-size: 36px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 30px;
-}
-
-.form-control {
+#questionNav, #questionNavEnd {
+    padding: 20px;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    box-shadow: none;
-    border: 1px solid #ced4da;
+    background-color: #f9f9f9;
 }
 
-.form-floating>label {
-    padding: 0.75rem 0.75rem;
-    pointer-events: none;
-    color: #6c757d;
+#questionNav h5, #questionNavEnd h5 {
+    margin-bottom: 15px;
 }
 
-.form-floating>.form-control {
-    padding: 1rem 0.75rem;
+#questionButtonsContainer, #questionButtonsContainerEnd {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
 }
+
+.question-container {
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.answers-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.answer-btn {
+    width: calc(50% - 10px);
+    height: 100px;
+    margin: 5px;
+    padding: 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.answer-btn.correct {
+    background-color: green;
+    color: white;
+}
+
+.answer-btn.wrong {
+    background-color: red;
+    color: white;
+}
+
+.progress {
+    height: 20px;
+}
+
+.progress-bar {
+    transition: width 1s linear;
+}
+
+.question-button {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border: 1px solid #333;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.question-button.active {
+    background-color: #333;
+    color: white;
+}
+
+.question-button.correct {
+    background-color: green;
+    color: white;
+}
+
+.question-button.wrong {
+    background-color: red;
+    color: white;
+}
+
+.latest-score {
+    background-color: #87cefa; /* Leicht blauer Hintergrund */
+    border-left: 5px solid #007bff; /* Blaue Markierung am linken Rand */
+}
+
+.btn-select-stack {
+    background-color: #6c757d; /* Grau */
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-select-stack:hover {
+    background-color: #5a6268; /* Dunkleres Grau beim Hover */
+    transform: scale(1.05);
+}
+
+.btn-select-stack:focus {
+    outline: none;
+    box-shadow: 0 0 10px #5a6268;
+}
+
+.btn-select-stack.selected {
+    background-color: #007bff; /* Blau */
+    color: white;
+    transform: scale(1.05);
+}
+
+
+
+
+
+
+
+
+/*Anmeldefenster*/
 
 .custom-btn {
     background-color: #007bff;

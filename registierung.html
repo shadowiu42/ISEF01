@@ -94,6 +94,22 @@
             });
         });
     </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // User Information
+        var currentUser = localStorage.getItem('currentUser') || 'User';
+        var profileImage = localStorage.getItem('profileImage') || 'img/profil.png';
+        document.getElementById('currentUser').innerText = currentUser;
+        document.getElementById('profileImage').src = profileImage;
+
+        // Logout
+        document.getElementById('logout').addEventListener('click', function() {
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('profileImage');
+            window.location.href = 'index.html';
+        });
+    });
+</script>
 
 </body>
 </html>
