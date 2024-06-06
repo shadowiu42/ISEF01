@@ -288,3 +288,65 @@ footer {
     color: white;
     transform: scale(1.05);
 }
+
+
+
+
+
+
+
+
+/*Anmeldefenster*/
+
+.custom-btn {
+    background-color: #007bff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.custom-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.custom-btn:focus {
+    outline: none;
+    box-shadow: 0 0 10px #0056b3;
+}
+
+.social-btn {
+    background-color: #e9ecef;
+    color: #333;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.social-btn:hover {
+    background-color: #d4d4d4;
+    transform: scale(1.05);
+}
+
+.div-separator span {
+    background-color: #f4f6f9;
+    padding: 0 10px;
+}
+
+.div-separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.div-separator::before,
+.div-separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+}

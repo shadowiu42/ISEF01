@@ -42,16 +42,16 @@ $(document).ready(function () {
     }
 
     function getRandomUserName() {
-        var userNames = ['User01', 'User02', 'User03', 'User04', 'User05'];
+        var userNames = ['Frank', 'Peter', 'Tom', 'Lisa', 'Laura'];
         return userNames[Math.floor(Math.random() * userNames.length)];
     }
 
     function initializeDefaultScoreHistory(stackTitle) {
         if (!localStorage.getItem('scoreHistory_' + stackTitle)) {
             var defaultScores = [
-                { date: '2024-06-01', user: getRandomUserName(), score: Math.floor(Math.random() * 3000) + 1000 },
-                { date: '2024-06-02', user: getRandomUserName(), score: Math.floor(Math.random() * 3000) + 1000 },
-                { date: '2024-06-03', user: getRandomUserName(), score: Math.floor(Math.random() * 3000) + 1000 }
+                { date: '2024-06-01', user: getRandomUserName(), score: Math.floor(Math.random() * 3000) + 100 },
+                { date: '2024-06-02', user: getRandomUserName(), score: Math.floor(Math.random() * 3000) + 100 },
+                { date: '2024-06-03', user: getRandomUserName(), score: Math.floor(Math.random() * 3000) + 100 }
             ];
             localStorage.setItem('scoreHistory_' + stackTitle, JSON.stringify(defaultScores));
         }

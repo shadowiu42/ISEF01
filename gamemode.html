@@ -21,7 +21,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html">Meine Stapel</a>
+                    <a class="nav-link" href="meinStapel.html">Meine Stapel</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="gamemode.html">Game Mode</a>
@@ -33,12 +33,10 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-                        <span id="currentUser">Besucher</span> <img id="profileImage" class="rounded-profile" src="img/Nonpic.png" width="30" height="30" alt="User">
+                        <span id="currentUser">User</span> <img id="profileImage" class="rounded-profile" src="img/profil.png" width="30" height="30" alt="User">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item user-switch" href="#" data-username="User01" data-profile="img/profil.png">User 01</a>
-                        <a class="dropdown-item user-switch" href="#" data-username="User02" data-profile="img/pb2.jpg">User 02</a>
-                        <a class="dropdown-item user-switch" href="#" data-username="Besucher" data-profile="img/Nonpic.png">Besucher</a>
+                        <a class="dropdown-item" href="#" id="logout">Abmelden</a>
                     </div>
                 </li>
             </ul>
@@ -110,19 +108,23 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="gamemode.js"></script>
     <script src="scriptsMeineStapel.js"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            document.querySelectorAll('.user-switch').forEach(function(element) {
-                element.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    var newUser = event.target.getAttribute('data-username');
-                    var newProfileImage = event.target.getAttribute('data-profile');
-                    document.getElementById('currentUser').innerText = newUser;
-                    document.getElementById('profileImage').src = newProfileImage;
-                    localStorage.setItem('currentUser', newUser);
-                });
+            // User Information
+            var currentUser = localStorage.getItem('currentUser') || 'User';
+            var profileImage = localStorage.getItem('profileImage') || 'img/profil.png';
+            document.getElementById('currentUser').innerText = currentUser;
+            document.getElementById('profileImage').src = profileImage;
+
+            // Logout
+            document.getElementById('logout').addEventListener('click', function() {
+                localStorage.removeItem('currentUser');
+                localStorage.removeItem('profileImage');
+                window.location.href = 'index.html';
             });
         });
     </script>
+
 </body>
 </html>
