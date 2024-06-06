@@ -9,160 +9,72 @@
     <link rel="icon" href="img/logo.png" type="image/png">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="#">
-            <img src="img/logo.png" alt="QuizBuddy Logo" width="30" height="30" class="d-inline-block align-top">
-            QuizBuddy
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Meine Stapel</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="gamemode.html">Game Mode</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="forum.html">Forum</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-                        <span id="currentUser">User 01</span> <img id="profileImage" class="rounded-profile" src="img/profil.png" width="30" height="30" alt="User">
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item user-switch" href="#" data-username="User01" data-profile="img/profil.png">User 01</a>
-                        <a class="dropdown-item user-switch" href="#" data-username="User02" data-profile="img/pb2.jpg">User 02</a>
-                        <a class="dropdown-item user-switch" href="#" data-username="Besucher" data-profile="img/Nonpic.png">Besucher</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
 
-    <div class="container mt-4">
-        <div class="row" id="card-container">
-            <div class="col-md-4 mb-4">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h5 class="card-title">Allgemein Wissen</h5>
-                        <button class="btn btn-edit">Bearbeiten</button>
-                        <button class="btn btn-delete">Löschen</button>
-                        <button class="btn btn-learn">Lernen</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h5 class="card-title">Physik</hhe5>
-                        <button class="btn btn-edit">Bearbeiten</button>
-                        <button class="btn btn-delete">Löschen</button>
-                        <button class="btn btn-learn">Lernen</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h5 class="card-title">Mathe</h5>
-                        <button class="btn btn-edit">Bearbeiten</button>
-                        <button class="btn btn-delete">Löschen</button>
-                        <button class="btn btn-learn">Lernen</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4 add-card-container">
-                <div class="card text-center add-card" data-toggle="modal" data-target="#addCardModal">
-                    <div class="card-body">
-                        <h5 class="card-title">+</h5>
-                    </div>
-                </div>
-            </div>
+    <section class="preloader">
+        <div class="spinner">
+            <span class="sk-inner-circle"></span>
         </div>
-    </div>
+    </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 QuizBuddy. All rights reserved.</p>
-        </div>
-    </footer>
+    <main>
+        <section class="sign-in-form section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto col-12">
 
-    <!-- Modal für Kachel hinzufügen -->
-    <div class="modal fade" id="addCardModal" tabindex="-1" aria-labelledby="addCardModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addCardModalLabel">Neue Kachel hinzufügen</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="addCardForm">
-                        <div class="form-group">
-                            <label for="cardTitle">Titel der Kachel</label>
-                            <input type="text" class="form-control" id="cardTitle" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Hinzufügen</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+                        <h1 class="hero-title text-center mb-5">Anmelden</h1>
 
-    <!-- Modal für Kachel bearbeiten -->
-    <div class="modal fade" id="editCardModal" tabindex="-1" aria-labelledby="editCardModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editCardModalLabel">Kachel bearbeiten</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="editCardForm">
-                        <div class="form-group">
-                            <label for="question">Frage</label>
-                            <input type="text" class="form-control" id="question" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="answer">Antwort</label>
-                            <input type="text" class="form-control answer-input" required>
-                            <div class="form-check">
-                                <input class="form-check-input correct-answer" type="radio" name="correctAnswer" required>
-                                <label class="form-check-label">Richtig</label>
+                        <div class="row">
+                            <div class="col-lg-8 col-11 mx-auto">
+                                <form id="loginForm" role="form" method="post">
+
+                                    <div class="form-floating mb-4 p-0">
+                                        <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required>
+                                        <label for="email">E-Mail Adresse</label>
+                                    </div>
+                                    <div class="form-floating p-0">
+                                        <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+                                        <label for="password">Password</label>
+                                    </div>
+
+                                    <button type="submit" class="btn custom-btn form-control mt-4 mb-3">
+                                        Anmelden
+                                    </button>
+
+                                    <p class="text-center">Du hast noch kein Konto? <a href="registierung.html">Create One</a></p>
+
+                                </form>
                             </div>
                         </div>
-                        <div id="additionalAnswers"></div>
-                        <button type="submit" class="btn btn-primary">Speichern</button>
-                    </form>
-                    <div id="questionsList" class="mt-4"></div>
+                        
+                    </div>
+
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
+
+    </main>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="scriptsMeineStapel.js"></script>
+    <script src="userManagement.js"></script> <!-- Add this line -->
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            document.querySelectorAll('.user-switch').forEach(function(element) {
-                element.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    var newUser = event.target.getAttribute('data-username');
-                    var newProfileImage = event.target.getAttribute('data-profile');
-                    document.getElementById('currentUser').innerText = newUser;
-                    document.getElementById('profileImage').src = newProfileImage;
-                });
+            document.getElementById('loginForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                
+                // Validate user
+                if (validateUser(email, password)) {
+                    // Redirect to meinStapel.html
+                    window.location.href = 'meinStapel.html';
+                } else {
+                    alert('Invalid credentials. Please try again.');
+                }
             });
         });
     </script>

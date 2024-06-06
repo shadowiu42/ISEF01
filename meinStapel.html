@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizBuddy</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <link rel="icon" href="img/logo.png" type="image/png">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">
+            <img src="img/logo.png" alt="QuizBuddy Logo" width="30" height="30" class="d-inline-block align-top">
+            QuizBuddy
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="meinStapel.html">Mein Stapel</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="gamemode.html">Game Mode</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="forum.html">Forum</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                        <span id="currentUser">User</span> <img id="profileImage" class="rounded-profile" src="img/Nonpic.png" width="30" height="30" alt="User">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#" id="logout">Abmelden</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row" id="card-container">
+            <!-- Dynamisch generierte Karten hier -->
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 QuizBuddy. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Modal für Kachel hinzufügen -->
+    <div class="modal fade" id="addCardModal" tabindex="-1" aria-labelledby="addCardModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCardModalLabel">Neue Kachel hinzufügen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addCardForm">
+                        <div class="form-group">
+                            <label for="cardTitle">Titel der Kachel</label>
+                            <input type="text" class="form-control" id="cardTitle" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Hinzufügen</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal für Kachel bearbeiten -->
+    <div class="modal fade" id="editCardModal" tabindex="-1" aria-labelledby="editCardModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editCardModalLabel">Kachel bearbeiten</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editCardForm">
+                        <div class="form-group">
+                            <label for="question">Frage</label>
+                            <input type="text" class="form-control" id="question" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="answer">Antwort</label>
+                            <input type="text" class="form-control answer-input" required>
+                            <div class="form-check">
+                                <input class="form-check-input correct-answer" type="radio" name="correctAnswer" required>
+                                <label class="form-check-label">Richtig</label>
+                            </div>
+                        </div>
+                        <div id="additionalAnswers"></div>
+                        <button type="submit" class="btn btn-primary">Speichern</button>
+                    </form>
+                    <div id="questionsList" class="mt-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="scriptsMeineStapel.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // User Information
+            var currentUser = localStorage.getItem('currentUser') || 'User';
+            var profileImage = localStorage.getItem('profileImage') || 'img/Nonpic.png';
+            document.getElementById('currentUser').innerText = currentUser;
+            document.getElementById('profileImage').src = profileImage;
+
+            // Logout
+            document.getElementById('logout').addEventListener('click', function() {
+                localStorage.removeItem('currentUser');
+                localStorage.removeItem('profileImage');
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+</html>
