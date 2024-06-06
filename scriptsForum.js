@@ -1,12 +1,4 @@
 $(document).ready(function () {
-    const users = [
-        { username: 'User01', password: 'pass01' },
-        { username: 'User02', password: 'pass02' },
-        { username: 'Besucher', password: 'guest' } 
-    ];
-
-    let currentUser = users[0]; 
-
     const defaultCategories = ['Allgemein Wissen', 'Physik', 'Mathe'];
 
     const defaultQuestions = {
