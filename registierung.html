@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link href="styles.css" rel="stylesheet">
     <link rel="icon" href="img/logo.png" type="image/png">
 </head>
+
 <body>
 
     <section class="preloader">
@@ -27,7 +29,7 @@
                         <h1 class="hero-title text-center mb-5">QuizBuddy</h1>
 
                         <div class="social-login d-flex flex-column w-50 m-auto">
-                            
+
                             <a href="#" class="btn custom-btn social-btn mb-4">
                                 <i class="bi bi-google me-3"></i>
                                 Weiter mit Google
@@ -46,17 +48,21 @@
                                 <form role="form" method="post">
 
                                     <div class="form-floating">
-                                        <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="E-Mail Adresse" required>
+                                        <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*"
+                                            class="form-control" placeholder="E-Mail Adresse" required>
                                         <label for="email">E-Mail Adresse</label>
                                     </div>
 
                                     <div class="form-floating my-4">
-                                        <input type="password" name="password" id="password" pattern="[0-9a-zA-Z]{4,10}" class="form-control" placeholder="Password" required>
+                                        <input type="password" name="password" id="password" pattern="[0-9a-zA-Z]{4,10}"
+                                            class="form-control" placeholder="Password" required>
                                         <label for="password">Password</label>
                                     </div>
 
                                     <div class="form-floating">
-                                        <input type="password" name="confirm_password" id="confirm_password" pattern="[0-9a-zA-Z]{4,10}" class="form-control" placeholder="Password" required>
+                                        <input type="password" name="confirm_password" id="confirm_password"
+                                            pattern="[0-9a-zA-Z]{4,10}" class="form-control" placeholder="Password"
+                                            required>
                                         <label for="confirm_password">Password Wiederholen</label>
                                     </div>
 
@@ -64,23 +70,24 @@
                                         Account erstellen
                                     </button>
 
-                                    <p class="text-center">Du hast bereits ein Konto? Bitte <a href="Index.HTML">Anmelden</a></p>
+                                    <p class="text-center">Du hast bereits ein Konto? Bitte <a
+                                            href="Index.HTML">Anmelden</a></p>
 
                                 </form>
                             </div>
                         </div>
-                        
+
                     </div>
 
                 </div>
             </div>
         </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 QuizBuddy. All rights reserved.</p>
-        </div>
-    </footer>
+        <footer>
+            <div class="container">
+                <p>&copy; 2024 QuizBuddy. All rights reserved.</p>
+            </div>
+        </footer>
 
     </main>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -88,9 +95,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="scriptsMeineStapel.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.querySelectorAll('.user-switch').forEach(function(element) {
-                element.addEventListener('click', function(event) {
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('.user-switch').forEach(function (element) {
+                element.addEventListener('click', function (event) {
                     event.preventDefault();
                     var newUser = event.target.getAttribute('data-username');
                     var newProfileImage = event.target.getAttribute('data-profile');
@@ -100,22 +107,23 @@
             });
         });
     </script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // User Information
-        var currentUser = localStorage.getItem('currentUser') || 'User';
-        var profileImage = localStorage.getItem('profileImage') || 'img/profil.png';
-        document.getElementById('currentUser').innerText = currentUser;
-        document.getElementById('profileImage').src = profileImage;
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // User Information
+            var currentUser = localStorage.getItem('currentUser') || 'User';
+            var profileImage = localStorage.getItem('profileImage') || 'img/profil.png';
+            document.getElementById('currentUser').innerText = currentUser;
+            document.getElementById('profileImage').src = profileImage;
 
-        // Logout
-        document.getElementById('logout').addEventListener('click', function() {
-            localStorage.removeItem('currentUser');
-            localStorage.removeItem('profileImage');
-            window.location.href = 'index.html';
+            // Logout
+            document.getElementById('logout').addEventListener('click', function () {
+                localStorage.removeItem('currentUser');
+                localStorage.removeItem('profileImage');
+                window.location.href = 'index.html';
+            });
         });
-    });
-</script>
+    </script>
 
 </body>
+
 </html>

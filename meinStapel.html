@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link href="styles.css" rel="stylesheet">
     <link rel="icon" href="img/logo.png" type="image/png">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" href="#">
@@ -15,7 +17,7 @@
             QuizBuddy
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -32,8 +34,10 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-                        <span id="currentUser">User</span> <img id="profileImage" class="rounded-profile" src="img/profil.png" width="30" height="30" alt="User">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown">
+                        <span id="currentUser">User</span> <img id="profileImage" class="rounded-profile"
+                            src="img/profil.png" width="30" height="30" alt="User">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="#" id="logout">Abmelden</a>
@@ -98,7 +102,8 @@
                             <label for="answer">Antwort</label>
                             <input type="text" class="form-control answer-input" required>
                             <div class="form-check">
-                                <input class="form-check-input correct-answer" type="radio" name="correctAnswer" required>
+                                <input class="form-check-input correct-answer" type="radio" name="correctAnswer"
+                                    required>
                                 <label class="form-check-label">Richtig</label>
                             </div>
                         </div>
@@ -116,15 +121,15 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="scriptsMeineStapel.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             // User Information
             var currentUser = localStorage.getItem('currentUser') || 'User';
             var profileImage = localStorage.getItem('profileImage') || 'img/profil.png';
             document.getElementById('currentUser').innerText = currentUser;
             document.getElementById('profileImage').src = profileImage;
- 
+
             // Logout
-            document.getElementById('logout').addEventListener('click', function() {
+            document.getElementById('logout').addEventListener('click', function () {
                 localStorage.removeItem('currentUser');
                 localStorage.removeItem('profileImage');
                 window.location.href = 'index.html';
@@ -132,4 +137,5 @@
         });
     </script>
 </body>
+
 </html>

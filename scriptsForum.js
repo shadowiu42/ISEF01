@@ -35,15 +35,15 @@ $(document).ready(function () {
     };
 
     function loadCategories() {
-    // Verwenden Sie die vordefinierten Kategorien anstelle von LocalStorage
-    let categories = JSON.parse(localStorage.getItem('categories')) || defaultCategories.slice();
-    categories.sort(); // Alphabetische sortiren 
-    $('#categories').empty();
-    $('#categories').append(`<a href="#" class="list-group-item list-group-item-action category-item" data-category="all">Alle Kategorien</a>`);
-    categories.forEach(category => {
-        $('#categories').append(`<a href="#" class="list-group-item list-group-item-action category-item" data-category="${category}">${category}</a>`);
-    });
-    updateQuestionCategoryOptions(categories);
+        // Verwenden Sie die vordefinierten Kategorien anstelle von LocalStorage
+        let categories = JSON.parse(localStorage.getItem('categories')) || defaultCategories.slice();
+        categories.sort(); // Alphabetische sortiren 
+        $('#categories').empty();
+        $('#categories').append(`<a href="#" class="list-group-item list-group-item-action category-item" data-category="all">Alle Kategorien</a>`);
+        categories.forEach(category => {
+            $('#categories').append(`<a href="#" class="list-group-item list-group-item-action category-item" data-category="${category}">${category}</a>`);
+        });
+        updateQuestionCategoryOptions(categories);
     }
 
     // Update des Event Handlers für das Hinzufügen einer Kategorie
@@ -66,7 +66,7 @@ $(document).ready(function () {
 
     function loadQuestions(categoryFilter = 'all') {
         let questions = JSON.parse(localStorage.getItem('questions')) || [];
-    
+
         // Fügen Sie die vordefinierten Fragen hinzu, wenn der LocalStorage leer ist
         if (questions.length === 0) {
             Object.keys(defaultQuestions).forEach(category => {
@@ -77,15 +77,15 @@ $(document).ready(function () {
             });
             localStorage.setItem('questions', JSON.stringify(questions));
         }
-    
+
         $('#questions-list').empty();
-    
+
         if (categoryFilter !== 'all') {
             questions = questions.filter(question => question.category === categoryFilter);
         }
-    
+
         questions.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-    
+
         questions.forEach((question, index) => {
             $('#questions-list').append(`
                 <div class="list-group-item">
@@ -133,7 +133,7 @@ $(document).ready(function () {
         let questionCategory = $('#questionCategory').val();
         let questionText = $('#questionText').val().trim();
         let questions = JSON.parse(localStorage.getItem('questions')) || [];
-        
+
         if (questionTitle && questionCategory && questionText) {
             let newQuestion = {
                 text: questionTitle,
@@ -196,7 +196,7 @@ $(document).ready(function () {
         $(this).data('visible', !isVisible);
         answersContainer.slideToggle();
     });
-    
+
 
     $(document).on('click', '.category-item', function (event) {
         event.preventDefault();

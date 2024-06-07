@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link href="styles.css" rel="stylesheet">
     <link rel="icon" href="img/logo.png" type="image/png">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" href="#">
@@ -15,7 +17,7 @@
             QuizBuddy
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -32,8 +34,10 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-                        <span id="currentUser">User</span> <img id="profileImage" class="rounded-profile" src="img/profil.png" width="30" height="30" alt="User">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown">
+                        <span id="currentUser">User</span> <img id="profileImage" class="rounded-profile"
+                            src="img/profil.png" width="30" height="30" alt="User">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="#" id="logout">Abmelden</a>
@@ -50,14 +54,16 @@
                 <div id="categories" class="list-group">
                     <!-- Kategorien werden hier eingefügt -->
                 </div>
-                <button class="btn btn-primary mt-3" data-toggle="modal" data-target="#addCategoryModal">Kategorie hinzufügen</button>
+                <button class="btn btn-primary mt-3" data-toggle="modal" data-target="#addCategoryModal">Kategorie
+                    hinzufügen</button>
             </div>
             <div class="col-md-9">
                 <h5>Aktuelle Themen</h5>
                 <div id="questions-list" class="list-group">
                     <!-- Fragen werden hier eingefügt -->
                 </div>
-                <button class="btn btn-primary mt-3" data-toggle="modal" data-target="#addQuestionModal">Frage hinzufügen</button>
+                <button class="btn btn-primary mt-3" data-toggle="modal" data-target="#addQuestionModal">Frage
+                    hinzufügen</button>
             </div>
         </div>
     </div>
@@ -70,7 +76,8 @@
     </footer>
 
     <!-- Modal für Kategorie hinzufügen -->
-    <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -93,7 +100,8 @@
     </div>
 
     <!-- Modal für Frage hinzufügen -->
-    <div class="modal fade" id="addQuestionModal" tabindex="-1" aria-labelledby="addQuestionModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addQuestionModal" tabindex="-1" aria-labelledby="addQuestionModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -106,7 +114,8 @@
                     <form id="addQuestionForm">
                         <div class="form-group">
                             <label for="questionTitle">Titel der Frage</label>
-                            <input type="text" class="form-control" id="questionTitle" placeholder="Titel der Frage eingeben" required>
+                            <input type="text" class="form-control" id="questionTitle"
+                                placeholder="Titel der Frage eingeben" required>
                         </div>
                         <div class="form-group">
                             <label for="questionCategory">Kategorie</label>
@@ -116,7 +125,8 @@
                         </div>
                         <div class="form-group">
                             <label for="questionText">Text der Frage</label>
-                            <textarea class="form-control" id="questionText" rows="3" placeholder="Text der Frage eingeben" required></textarea>
+                            <textarea class="form-control" id="questionText" rows="3"
+                                placeholder="Text der Frage eingeben" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Hinzufügen</button>
                     </form>
@@ -130,9 +140,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="scriptsForum.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.querySelectorAll('.user-switch').forEach(function(element) {
-                element.addEventListener('click', function(event) {
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('.user-switch').forEach(function (element) {
+                element.addEventListener('click', function (event) {
                     event.preventDefault();
                     var newUser = event.target.getAttribute('data-username');
                     var newProfileImage = event.target.getAttribute('data-profile');
@@ -144,7 +154,7 @@
     </script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             // User Information
             var currentUser = localStorage.getItem('currentUser') || 'User';
             var profileImage = localStorage.getItem('profileImage') || 'img/profil.png';
@@ -152,7 +162,7 @@
             document.getElementById('profileImage').src = profileImage;
 
             // Logout
-            document.getElementById('logout').addEventListener('click', function() {
+            document.getElementById('logout').addEventListener('click', function () {
                 localStorage.removeItem('currentUser');
                 localStorage.removeItem('profileImage');
                 window.location.href = 'index.html';
@@ -160,4 +170,5 @@
         });
     </script>
 </body>
+
 </html>
