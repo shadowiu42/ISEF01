@@ -99,7 +99,9 @@ body {
     padding: 10px;
     border-radius: 5px;
     margin-top: 10px;
+    background-color: #f9f9f9;
 }
+
 
 .answers-container .list-group-item {
     background-color: #ffffff;
@@ -111,6 +113,15 @@ body {
 
 .question-item {
     margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #add;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.add-answer-form {
+    margin-top: 10px;
 }
 
 .question-title {
