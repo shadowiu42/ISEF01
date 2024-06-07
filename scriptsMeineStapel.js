@@ -234,7 +234,7 @@ $(document).ready(function () {
     function loadQuestions(stackTitle) {
         var storedQuestions = JSON.parse(localStorage.getItem('questions_' + stackTitle)) || [];
         console.log('Questions loaded for', stackTitle, ':', storedQuestions);
-    
+
         $('#questionsList').empty(); // Löscht den aktuellen Inhalt, um Duplikate zu vermeiden
         storedQuestions.forEach(function (question) {
             addQuestionToDOM(question.text, question.answers);
@@ -275,7 +275,7 @@ $(document).ready(function () {
                 </div>
             `;
         });
-    
+
         var questionCard = `
             <div class="card mb-2 question-card">
                 <div class="card-body">
@@ -300,7 +300,7 @@ $(document).ready(function () {
                 answers.push({ text: answerText, correct: isCorrect });
             }
         });
-    
+
         if (question && answers.length) {
             addQuestionToDOM(question, answers);
             var stackTitle = $('#editCardModalLabel').text().replace('Bearbeite ', '');
@@ -362,7 +362,7 @@ $(document).ready(function () {
     function loadLearningQuestions() {
         var stackTitle = localStorage.getItem('currentLearningStack');
         var storedQuestions = JSON.parse(localStorage.getItem('questions_' + stackTitle)) || [];
-        
+
         if (storedQuestions.length === 0) {
             $('#questionsContainer').append('<p>Keine Fragen in diesem Stapel.</p>');
             $('#evaluateBtn').hide();
@@ -389,7 +389,7 @@ $(document).ready(function () {
         });
 
         $('#evaluateBtn').click(evaluateAnswers);
-        $('#backBtn').click(function() {
+        $('#backBtn').click(function () {
             window.location.href = 'index.html'; // Zurück zur Übersicht
         });
     }
