@@ -116,7 +116,7 @@ $(document).ready(function () {
     function loadAnswers(index, answers) {
         let answersList = $(`#answers-list-${index}`);
         answersList.empty();
-        answers.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        answers.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
         answers.forEach(answer => {
             answersList.append(`
                 <div class="list-group-item answer-item">
