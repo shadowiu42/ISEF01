@@ -24,6 +24,7 @@ $(document).ready(function () {
         updateCurrentUser(newUserName);
     });
 
+    // Funktion zum Laden der Stacks aus dem LocalStorage
     function loadStacks() {
         var storedStacks = JSON.parse(localStorage.getItem('stacks')) || [];
         $('#stacksContainer').empty();
@@ -41,11 +42,13 @@ $(document).ready(function () {
         });
     }
 
+    // Funktion zum Erzeugen eines zufälligen Benutzernamens
     function getRandomUserName() {
         var userNames = ['Frank', 'Peter', 'Tom', 'Lisa', 'Laura'];
         return userNames[Math.floor(Math.random() * userNames.length)];
     }
 
+    // Funktion zum Initialisieren der Standard-Score-Historie für einen Stapel
     function initializeDefaultScoreHistory(stackTitle) {
         if (!localStorage.getItem('scoreHistory_' + stackTitle)) {
             var defaultScores = [
@@ -57,6 +60,7 @@ $(document).ready(function () {
         }
     }
 
+    // Funktion zum Laden der Fragen für das gewählte Spiel
     function loadGameQuestions(stackTitle) {
         questions = JSON.parse(localStorage.getItem('questions_' + stackTitle)) || [];
         if (questions.length === 0) {
@@ -68,6 +72,7 @@ $(document).ready(function () {
         scoreHistory = JSON.parse(localStorage.getItem('scoreHistory_' + stackTitle)) || [];
     }
 
+    // Funktion zum Erzeugen der Fragen-Navigation
     function generateQuestionNav() {
         $('#questionButtonsContainer').empty();
         questions.forEach((question, index) => {
@@ -78,11 +83,13 @@ $(document).ready(function () {
         });
     }
 
+    // Funktion zum Aktualisieren der Fragen-Navigation
     function updateQuestionNav() {
         $('.question-button').removeClass('active');
         $(`.question-button[data-index="${currentQuestionIndex}"]`).addClass('active');
     }
 
+    // Funktion zum Erzeugen der End-Fragen-Navigation
     function generateEndQuestionNav() {
         $('#questionButtonsContainerEnd').empty();
         answersGiven.forEach((result, index) => {
@@ -94,6 +101,7 @@ $(document).ready(function () {
         });
     }
 
+    // Funktion zum Laden der Score-Historie
     function loadScoreHistory(latestScoreDate, latestScore) {
         $('#scoreHistory').empty();
         scoreHistory.sort((a, b) => b.score - a.score);
@@ -106,11 +114,13 @@ $(document).ready(function () {
         });
     }
 
+    // Funktion zum Formatieren des Datums
     function formatDate(dateString) {
         const [year, month, day] = dateString.split('-');
         return `${day}.${month}.${year}`;
     }
 
+    // Event-Handler für das Auswählen eines Stapels
     $(document).on('click', '.btn-select-stack', function () {
         var selectedStackTitle = $(this).data('title');
         currentStackTitle = selectedStackTitle;
@@ -126,6 +136,7 @@ $(document).ready(function () {
         loadGameQuestions(selectedStackTitle);
     });
 
+    // Event-Handler für den Start des Spiels
     $('#startGameBtn').click(function() {
         $('#stackSelectionContainer').hide();
         $('#gameContainer').show();
@@ -133,6 +144,7 @@ $(document).ready(function () {
         loadNextQuestion();
     });
 
+    // Funktion zum Laden der nächsten Frage
     function loadNextQuestion() {
         if (currentQuestionIndex >= questions.length) {
             endGame();
@@ -154,6 +166,7 @@ $(document).ready(function () {
         updateQuestionNav();
     }
 
+    // Funktion zum Starten des Timers für die Frage
     function startTimer() {
         var timeLeft = timePerQuestion;
         $('#timerBar').css({
@@ -176,8 +189,8 @@ $(document).ready(function () {
             }
         }, 1000);
     }
-    
 
+    // Funktion zum Behandeln eines Timeouts (wenn der Timer abläuft)
     function handleTimeout() {
         var correctAnswer = questions[currentQuestionIndex].answers.find(answer => answer.correct).text;
         $(`.answer-btn[data-answer="${correctAnswer}"]`).addClass('correct');
@@ -189,10 +202,12 @@ $(document).ready(function () {
         }, 3000); // Verzögerung, um das Blinken zu sehen
     }
 
+    // Funktion zum Blinken der Buttons
     function flashButtons() {
         $('.answer-btn.correct').fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
     }
 
+    // Event-Handler für die Auswahl einer Antwort
     $(document).on('click', '.answer-btn', function () {
         clearInterval(timer);
         var selectedAnswer = $(this).data('answer');
@@ -216,6 +231,7 @@ $(document).ready(function () {
         }, 1000);
     });
 
+    // Funktion zum Beenden des Spiels
     function endGame() {
         $('#gameContainer').hide();
         $('#endGameContainer').show();
@@ -235,6 +251,7 @@ $(document).ready(function () {
         generateEndQuestionNav();
     }
 
+    // Event-Handler zum Neustarten des Spiels
     $('#restartGameBtn').click(function() {
         currentQuestionIndex = 0;
         score = 0;
@@ -244,10 +261,12 @@ $(document).ready(function () {
         $('#startGameBtn').prop('disabled', true);
     });
 
+    // Event-Handler zur Rückkehr zur Übersicht
     $('#backToOverviewBtn').click(function() {
         window.location.href = 'gamemode.html';
     });
 
+    // Event-Handler zum Wiederholen des Spiels
     $('#retryBtn').click(function() {
         currentQuestionIndex = 0;
         score = 0;
@@ -257,8 +276,7 @@ $(document).ready(function () {
         generateQuestionNav(); // Quiz-Navigation zurücksetzen
         loadNextQuestion();
     });
-    
 
-
+    // Laden der Stacks beim Initialisieren der Seite
     loadStacks();
 });

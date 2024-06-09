@@ -5,12 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuizBuddy Auswertung</title>
+    <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
     <link rel="icon" href="img/logo.png" type="image/png">
 </head>
 
 <body>
+    <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" href="#">
             <img src="img/logo.png" alt="QuizBuddy Logo" width="30" height="30" class="d-inline-block align-top">
@@ -47,6 +49,7 @@
         </div>
     </nav>
 
+    <!-- Main Container for the Evaluation Page -->
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-12">
@@ -66,17 +69,20 @@
         <div class="footer-spacing"></div> <!-- Platzhalter für den Footer-Abstand -->
     </div>
 
+    <!-- Footer -->
     <footer>
         <div class="container">
             <p>&copy; 2024 QuizBuddy. All rights reserved.</p>
         </div>
     </footer>
 
+    <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function () {
+            // Funktion zum Laden der Ergebnisse
             function loadResults() {
                 var stackTitle = localStorage.getItem('currentLearningStack');
                 var storedQuestions = JSON.parse(localStorage.getItem('questions_' + stackTitle)) || [];
@@ -84,6 +90,7 @@
                 var totalCount = storedQuestions.length;
                 var detailsHtml = '';
 
+                // Detaillierte Ergebnisse generieren
                 storedQuestions.forEach((question, index) => {
                     var selectedAnswer = localStorage.getItem('selectedAnswer_' + index);
                     var correctAnswerObj = question.answers.find(answer => answer.correct);
@@ -119,6 +126,7 @@
                     `;
                 });
 
+                // Zusammenfassung der Ergebnisse anzeigen
                 $('#summary').html(`
                     <p>Sie haben ${correctCount} von ${totalCount} Fragen richtig beantwortet (${(correctCount / totalCount * 100).toFixed(2)}%).</p>
                 `);
@@ -127,10 +135,12 @@
 
             loadResults();
 
+            // Event-Handler für den Zurück-Button
             $('#backBtn').click(function () {
                 window.location.href = 'meinStapel.html'; // Zurück zur Übersicht
             });
 
+            // Event-Handler für den Wiederholen-Button
             $('#retryBtn').click(function () {
                 // Entferne die ausgewählten Antworten aus dem Local Storage
                 var stackTitle = localStorage.getItem('currentLearningStack');
@@ -145,13 +155,13 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // User Information
+            // Benutzerinformationen laden
             var currentUser = localStorage.getItem('currentUser') || 'User';
             var profileImage = localStorage.getItem('profileImage') || 'img/profil.png';
             document.getElementById('currentUser').innerText = currentUser;
             document.getElementById('profileImage').src = profileImage;
 
-            // Logout
+            // Event-Handler für den Logout-Button
             document.getElementById('logout').addEventListener('click', function () {
                 localStorage.removeItem('currentUser');
                 localStorage.removeItem('profileImage');
