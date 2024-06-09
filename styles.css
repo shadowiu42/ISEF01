@@ -212,24 +212,20 @@ footer {
 }
 
 .answers-container {
-    display: flex;
-    flex-wrap: wrap;
+    display: block;
     justify-content: space-between;
     gap: 10px;
 }
 
 .answer-btn {
-    width: calc(50% - 10px);
-    height: 100px;
-    margin: 5px;
-    padding: 20px;
+    width: 100%;
+    height: auto;
+    margin: 5px 0;
+    padding: 1px;
     font-size: 16px;
-    border-radius: 10px;
+    border-radius: 5px;
     transition: background-color 0.3s, color 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    text-align: left;
 }
 
 .answer-btn.correct {
