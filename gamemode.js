@@ -3,7 +3,7 @@ $(document).ready(function () {
     var currentQuestionIndex = 0;
     var score = 0;
     var timer;
-    var timePerQuestion = 10; // Sekunden pro Frage
+    var timePerQuestion = 20; // Sekunden pro Frage
     var answersGiven = [];
     var currentStackTitle = '';
     var scoreHistory = [];
