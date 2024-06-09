@@ -148,13 +148,25 @@ $(document).ready(function () {
             `;
         });
         $('.answers-container').html(answersHtml);
+        $('#timerBar').css('transition', 'none'); // Deaktivieren Sie die Animation
+        $('#timerBar').css('width', '100%'); // Fortschrittsbalken sofort auf 100% setzen
         startTimer();
         updateQuestionNav();
     }
 
     function startTimer() {
         var timeLeft = timePerQuestion;
-        $('#timerBar').css('width', '100%');
+        $('#timerBar').css({
+            'width': '100%',
+            'transition': 'none' // Transition ausschalten
+        });
+    
+        setTimeout(function() {
+            $('#timerBar').css({
+                'transition': 'width 1s linear' // Transition wieder einschalten
+            });
+        }, 20); // Kurze Verzögerung, um die Transition-Änderung anzuwenden
+    
         timer = setInterval(function() {
             timeLeft--;
             $('#timerBar').css('width', (timeLeft / timePerQuestion) * 100 + '%');
@@ -164,6 +176,7 @@ $(document).ready(function () {
             }
         }, 1000);
     }
+    
 
     function handleTimeout() {
         var correctAnswer = questions[currentQuestionIndex].answers.find(answer => answer.correct).text;
@@ -232,8 +245,20 @@ $(document).ready(function () {
     });
 
     $('#backToOverviewBtn').click(function() {
-        window.location.href = 'index.html';
+        window.location.href = 'gamemode.html';
     });
+
+    $('#retryBtn').click(function() {
+        currentQuestionIndex = 0;
+        score = 0;
+        answersGiven = [];
+        $('#endGameContainer').hide();
+        $('#gameContainer').show();
+        generateQuestionNav(); // Quiz-Navigation zurücksetzen
+        loadNextQuestion();
+    });
+    
+
 
     loadStacks();
 });
