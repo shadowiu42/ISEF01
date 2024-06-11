@@ -241,6 +241,8 @@ footer {
     color: white;
 }
 
+
+
 .progress {
     height: 20px;
 }
@@ -309,7 +311,18 @@ footer {
     transform: scale(1.05);
 }
 
+.answer-image {
+    display: none;
+}
 
+.btn-link i.fas.fa-paperclip {
+    font-size: 20px;
+}
+
+.btn-link {
+    padding: 0;
+    border: none;
+}
 
 
 

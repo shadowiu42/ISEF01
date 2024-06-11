@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    
     const defaultCategories = ['Allgemein Wissen', 'Physik', 'Mathe'];
 
     const defaultQuestions = {
@@ -108,13 +109,14 @@ $(document).ready(function () {
                             <div id="answers-list-${index}" class="list-group mt-2">
                                 <!-- Antworten werden hier eingefügt -->
                             </div>
-                            <form class="add-answer-form mt-3" data-index="${index}">
-                                <div class="form-group d-flex">
-                                    <input type="text" class="form-control" id="answerText-${index}" placeholder="Antwort schreiben..." required>
-                                    <input type="file" class="form-control ml-2 answer-image" accept="image/*" data-index="${index}">
-                                    <button type="submit" class="btn btn-primary ml-2">Absenden</button>
-                                </div>
-                            </form>
+                        <form class="add-answer-form mt-3" data-index="${index}">
+                            <div class="form-group d-flex">
+                               <input type="text" class="form-control" id="answerText-${index}" placeholder="Antwort schreiben..." required>
+                                <input type="file" class="form-control ml-2 answer-image" accept="image/*" data-index="${index}" style="display: none;" id="fileInput-${index}">
+                                <label for="fileInput-${index}" class="btn btn-link ml-2"><i class="fas fa-paperclip"></i></label>
+                                <button type="submit" class="btn btn-primary ml-2">Absenden</button>
+                            </div>
+                        </form>
                         </div>
                     </div>
                 </div>
@@ -209,7 +211,8 @@ $(document).ready(function () {
         let username = $(this).data('username');
         currentUser = users.find(user => user.username === username);
         $('#currentUser').text(currentUser.username);
-    });
+        localStorage.setItem('currentUser', currentUser.username);
+    });  
 
     $(document).on('click', '.toggle-answers', function () {
         let answersContainer = $(this).closest('.question-item').find('.answers-container');
