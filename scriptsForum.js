@@ -34,6 +34,15 @@ $(document).ready(function () {
         ]
     };
 
+    // Funktion um Bilder hinzuzufügen
+    function convertImageToBase64(file, callback) {
+        const reader = new FileReader();
+        reader.onload = function() {
+          callback(reader.result);
+        };
+        reader.readAsDataURL(file);
+      }
+
     function loadCategories() {
         // Verwenden Sie die vordefinierten Kategorien anstelle von LocalStorage
         let categories = JSON.parse(localStorage.getItem('categories')) || defaultCategories.slice();
@@ -102,6 +111,7 @@ $(document).ready(function () {
                             <form class="add-answer-form mt-3" data-index="${index}">
                                 <div class="form-group d-flex">
                                     <input type="text" class="form-control" id="answerText-${index}" placeholder="Antwort schreiben..." required>
+                                    <input type="file" class="form-control ml-2 answer-image" accept="image/*" data-index="${index}">
                                     <button type="submit" class="btn btn-primary ml-2">Absenden</button>
                                 </div>
                             </form>
@@ -118,12 +128,14 @@ $(document).ready(function () {
         answersList.empty();
         answers.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
         answers.forEach(answer => {
-            answersList.append(`
+            let answerItem =`
                 <div class="list-group-item answer-item">
                     <p>${answer.text}</p>
+                    ${answer.image ? `<img src="${answer.image}" class="img-fluid">` : ''}
                     <small class="answer-meta">Geantwortet von: ${answer.user} | Am: ${answer.timestamp}</small>
                 </div>
-            `);
+            `;
+            answersList.append(answerItem);
         });
     }
 
@@ -156,6 +168,7 @@ $(document).ready(function () {
         event.preventDefault();
         let index = $(this).data('index');
         let answerText = $(`#answerText-${index}`).val().trim();
+        let answerImage = $(this).find('.answer-image[data-index="' + index + '"]')[0].files[0];
         if (answerText) {
             let questions = JSON.parse(localStorage.getItem('questions')) || [];
             let question = questions[index];
@@ -164,13 +177,26 @@ $(document).ready(function () {
                 user: currentUser.username,
                 timestamp: new Date().toLocaleString()
             };
-            question.answers.push(newAnswer);
-            questions[index] = question;
-            localStorage.setItem('questions', JSON.stringify(questions));
-            loadAnswers(index, question.answers);
-            $(`#answerText-${index}`).val('');
-        }
-    });
+        
+            if (answerImage) {
+                convertImageToBase64(answerImage, function(base64Image) {
+                  newAnswer.image = base64Image;
+                  question.answers.push(newAnswer);
+                  questions[index] = question;
+                  localStorage.setItem('questions', JSON.stringify(questions));
+                  loadAnswers(index, question.answers);
+                  $(`#answerText-${index}`).val('');
+                  $(`#answerImage-${index}`).val('');
+                });
+              } else {
+                question.answers.push(newAnswer);
+                questions[index] = question;
+                localStorage.setItem('questions', JSON.stringify(questions));
+                loadAnswers(index, question.answers);
+                $(`#answerText-${index}`).val('');
+              }
+            }
+          });
 
     function updateQuestionCategoryOptions(categories) {
         $('#questionCategory').empty();
