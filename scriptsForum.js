@@ -1,7 +1,8 @@
 $(document).ready(function () {
-    
+    // Vordefinierte Kategorien
     const defaultCategories = ['Allgemein Wissen', 'Physik', 'Mathe'];
 
+    // Vordefinierte Fragen und Antworten
     const defaultQuestions = {
         'Allgemein Wissen': [
             {
@@ -35,7 +36,7 @@ $(document).ready(function () {
         ]
     };
 
-    // Funktion um Bilder hinzuzufügen
+    // Funktion zum Konvertieren von Bildern in Base64
     function convertImageToBase64(file, callback) {
         const reader = new FileReader();
         reader.onload = function() {
@@ -44,10 +45,10 @@ $(document).ready(function () {
         reader.readAsDataURL(file);
       }
 
+    // Funktion zum Laden der Kategorien
     function loadCategories() {
-        // Verwenden Sie die vordefinierten Kategorien anstelle von LocalStorage
         let categories = JSON.parse(localStorage.getItem('categories')) || defaultCategories.slice();
-        categories.sort(); // Alphabetische sortiren 
+        categories.sort(); // Kategorien alphabetisch sortieren
         $('#categories').empty();
         $('#categories').append(`<a href="#" class="list-group-item list-group-item-action category-item" data-category="all">Alle Kategorien</a>`);
         categories.forEach(category => {
@@ -56,7 +57,7 @@ $(document).ready(function () {
         updateQuestionCategoryOptions(categories);
     }
 
-    // Update des Event Handlers für das Hinzufügen einer Kategorie
+    // Event-Handler für das Hinzufügen einer Kategorie
     $('#addCategoryForm').submit(function (event) {
         event.preventDefault();
         let categoryName = $('#categoryName').val().trim();
@@ -74,10 +75,11 @@ $(document).ready(function () {
         }
     });
 
+    // Funktion zum Laden der Fragen
     function loadQuestions(categoryFilter = 'all') {
         let questions = JSON.parse(localStorage.getItem('questions')) || [];
 
-        // Fügen Sie die vordefinierten Fragen hinzu, wenn der LocalStorage leer ist
+        // Vordefinierte Fragen hinzufügen, falls LocalStorage leer ist
         if (questions.length === 0) {
             Object.keys(defaultQuestions).forEach(category => {
                 defaultQuestions[category].forEach(question => {
@@ -125,6 +127,7 @@ $(document).ready(function () {
         });
     }
 
+    // Funktion zum Laden der Antworten
     function loadAnswers(index, answers) {
         let answersList = $(`#answers-list-${index}`);
         answersList.empty();
@@ -141,6 +144,7 @@ $(document).ready(function () {
         });
     }
 
+    // Event-Handler für das Hinzufügen einer Frage
     $('#addQuestionForm').submit(function (event) {
         event.preventDefault();
         let questionTitle = $('#questionTitle').val().trim();
@@ -166,6 +170,7 @@ $(document).ready(function () {
         }
     });
 
+    // Event-Handler für das Hinzufügen einer Antwort
     $(document).on('submit', '.add-answer-form', function (event) {
         event.preventDefault();
         let index = $(this).data('index');
@@ -200,6 +205,7 @@ $(document).ready(function () {
             }
           });
 
+    // Funktion zum Aktualisieren der Kategorieoptionen im Formular
     function updateQuestionCategoryOptions(categories) {
         $('#questionCategory').empty();
         categories.forEach(category => {
@@ -207,6 +213,7 @@ $(document).ready(function () {
         });
     }
 
+    // Event-Handler für das Umschalten des Benutzers
     $(document).on('click', '.user-switch', function () {
         let username = $(this).data('username');
         currentUser = users.find(user => user.username === username);
@@ -214,6 +221,7 @@ $(document).ready(function () {
         localStorage.setItem('currentUser', currentUser.username);
     });  
 
+    // Event-Handler für das Ein- und Ausblenden der Antworten
     $(document).on('click', '.toggle-answers', function () {
         let answersContainer = $(this).closest('.question-item').find('.answers-container');
         let isVisible = $(this).data('visible');
@@ -226,7 +234,7 @@ $(document).ready(function () {
         answersContainer.slideToggle();
     });
 
-
+    // Event-Handler für das Filtern der Fragen nach Kategorie
     $(document).on('click', '.category-item', function (event) {
         event.preventDefault();
         let category = $(this).data('category');
@@ -235,6 +243,7 @@ $(document).ready(function () {
         $(this).addClass('active');
     });
 
+    // Event-Handler für das Zurücksetzen des Forums
     $('#resetData').click(function () {
         if (confirm('Möchten Sie wirklich alle Daten zurücksetzen?')) {
             localStorage.removeItem('categories');
@@ -244,6 +253,7 @@ $(document).ready(function () {
         }
     });
 
+    // Initiales Laden der Kategorien und Fragen
     loadCategories();
     loadQuestions();
 });

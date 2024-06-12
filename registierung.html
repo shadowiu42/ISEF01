@@ -5,13 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuizBuddy</title>
+    <!-- Einbindung von Bootstrap CSS für das Styling -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Einbindung der benutzerdefinierten Stylesheet -->
     <link href="styles.css" rel="stylesheet">
+    <!-- Einbindung des Favicon -->
     <link rel="icon" href="img/logo.png" type="image/png">
 </head>
 
 <body>
-
+    <!-- Abschnitt für den Preloader -->
     <section class="preloader">
         <div class="spinner">
             <span class="sk-inner-circle"></span>
@@ -19,22 +22,20 @@
     </section>
 
     <main>
-
+        <!-- Anmeldeformular Abschnitt -->
         <section class="sign-in-form section-padding">
             <div class="container">
                 <div class="row">
-
                     <div class="col-lg-8 mx-auto col-12">
-
                         <h1 class="hero-title text-center mb-5">QuizBuddy</h1>
 
                         <div class="social-login d-flex flex-column w-50 m-auto">
-
+                            <!-- Schaltfläche zur Anmeldung mit Google -->
                             <a href="#" class="btn custom-btn social-btn mb-4">
                                 <i class="bi bi-google me-3"></i>
                                 Weiter mit Google
                             </a>
-
+                            <!-- Schaltfläche zur Anmeldung mit IU -->
                             <a href="#" class="btn custom-btn social-btn">
                                 <i class="bi bi-facebook me-3"></i>
                                 Weiter mit IU
@@ -46,32 +47,35 @@
                         <div class="row">
                             <div class="col-lg-8 col-11 mx-auto">
                                 <form role="form" method="post">
-
                                     <div class="form-floating">
+                                        <!-- Eingabefeld für E-Mail Adresse -->
                                         <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*"
                                             class="form-control" placeholder="E-Mail Adresse" required>
                                         <label for="email">E-Mail Adresse</label>
                                     </div>
 
                                     <div class="form-floating my-4">
+                                        <!-- Eingabefeld für Passwort -->
                                         <input type="password" name="password" id="password" pattern="[0-9a-zA-Z]{4,10}"
                                             class="form-control" placeholder="Password" required>
                                         <label for="password">Password</label>
                                     </div>
 
                                     <div class="form-floating">
+                                        <!-- Eingabefeld zur Bestätigung des Passworts -->
                                         <input type="password" name="confirm_password" id="confirm_password"
                                             pattern="[0-9a-zA-Z]{4,10}" class="form-control" placeholder="Password"
                                             required>
                                         <label for="confirm_password">Password Wiederholen</label>
                                     </div>
 
+                                    <!-- Schaltfläche zum Erstellen eines Accounts -->
                                     <button type="submit" class="btn custom-btn form-control mt-4 mb-3">
                                         Account erstellen
                                     </button>
 
                                     <p class="text-center">Du hast bereits ein Konto? Bitte <a
-                                            href="Index.HTML">Anmelden</a></p>
+                                            href="index.html">Anmelden</a></p>
 
                                 </form>
                             </div>
@@ -83,6 +87,7 @@
             </div>
         </section>
 
+        <!-- Fußzeile -->
         <footer>
             <div class="container">
                 <p>&copy; 2024 QuizBuddy. All rights reserved.</p>
@@ -90,12 +95,18 @@
         </footer>
 
     </main>
+
+    <!-- Einbindung von jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Einbindung von Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <!-- Einbindung von Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Einbindung der benutzerdefinierten Scripts -->
     <script src="scriptsMeineStapel.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            // Funktion zum Wechseln des Benutzers
             document.querySelectorAll('.user-switch').forEach(function (element) {
                 element.addEventListener('click', function (event) {
                     event.preventDefault();
@@ -109,13 +120,14 @@
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // User Information
+            // Variable für aktuellen Benutzer
             var currentUser = localStorage.getItem('currentUser') || 'User';
+            // Variable für Profilbild des Benutzers
             var profileImage = localStorage.getItem('profileImage') || 'img/profil.png';
             document.getElementById('currentUser').innerText = currentUser;
             document.getElementById('profileImage').src = profileImage;
 
-            // Logout
+            // Funktion für das Abmelden des Benutzers
             document.getElementById('logout').addEventListener('click', function () {
                 localStorage.removeItem('currentUser');
                 localStorage.removeItem('profileImage');

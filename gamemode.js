@@ -1,14 +1,14 @@
 $(document).ready(function () {
-    var questions = [];
-    var currentQuestionIndex = 0;
-    var score = 0;
-    var timer;
+    var questions = []; // Variable für die Fragen des aktuellen Spiels
+    var currentQuestionIndex = 0; // Index der aktuellen Frage
+    var score = 0; // Punktestand des Spielers
+    var timer; // Variable für den Timer
     var timePerQuestion = 20; // Sekunden pro Frage
-    var answersGiven = [];
-    var currentStackTitle = '';
-    var scoreHistory = [];
+    var answersGiven = []; // Array für die gegebenen Antworten
+    var currentStackTitle = ''; // Titel des aktuellen Stapels
+    var scoreHistory = []; // Score-Historie für den aktuellen Stapel
 
-    // Initialisieren Sie den aktuellen Benutzer beim Laden der Seite
+    // Initialisieren des aktuellen Benutzers beim Laden der Seite
     var currentUser = localStorage.getItem('currentUser') || $('#currentUser').text();
     $('#currentUser').text(currentUser); // Benutzername im Dropdown anzeigen
 
