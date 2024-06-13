@@ -8,20 +8,24 @@
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
+    <!-- Einbindung des Favicon -->
     <link rel="icon" href="img/logo.png" type="image/png">
 </head>
 
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light">
+        <!-- Logo und Name der Anwendung -->
         <a class="navbar-brand" href="#">
             <img src="img/logo.png" alt="QuizBuddy Logo" width="30" height="30" class="d-inline-block align-top">
             QuizBuddy
         </a>
+        <!-- Schaltfläche für das Umschalten der Navigation auf mobilen Geräten -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <!-- Navigationslinks -->
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item active">
@@ -34,12 +38,15 @@
                     <a class="nav-link" href="forum.html">Forum</a>
                 </li>
             </ul>
+            <!-- Dropdown-Menü für Benutzerprofil -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown">
-                        <span id="currentUser">User</span> <img id="profileImage" class="rounded-profile"
-                            src="img/profil.png" width="30" height="30" alt="User">
+                        <!-- Aktueller Benutzername -->
+                        <span id="currentUser">User</span> 
+                        <!-- Profilbild des Benutzers -->
+                        <img id="profileImage" class="rounded-profile" src="img/profil.png" width="30" height="30" alt="User">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="#" id="logout">Abmelden</a>
@@ -49,14 +56,14 @@
         </div>
     </nav>
 
-    <!-- Main Container for Dynamic Cards -->
+    <!-- Hauptcontainer für dynamische Kacheln -->
     <div class="container mt-4">
         <div class="row" id="card-container">
             <!-- Dynamisch generierte Karten hier -->
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Fußzeile -->
     <footer>
         <div class="container">
             <p>&copy; 2024 QuizBuddy. All rights reserved.</p>
@@ -76,6 +83,7 @@
                 <div class="modal-body">
                     <form id="addCardForm">
                         <div class="form-group">
+                            <!-- Eingabefeld für den Titel der Kachel -->
                             <label for="cardTitle">Titel der Kachel</label>
                             <input type="text" class="form-control" id="cardTitle" required>
                         </div>
@@ -99,13 +107,16 @@
                 <div class="modal-body">
                     <form id="editCardForm">
                         <div class="form-group">
+                            <!-- Eingabefeld für die Frage -->
                             <label for="question">Frage</label>
                             <input type="text" class="form-control" id="question" required>
                         </div>
                         <div class="form-group">
+                            <!-- Eingabefeld für die Antwort -->
                             <label for="answer">Antwort</label>
                             <input type="text" class="form-control answer-input" required>
                             <div class="form-check">
+                                <!-- Auswahl für richtige Antwort -->
                                 <input class="form-check-input correct-answer" type="radio" name="correctAnswer"
                                     required>
                                 <label class="form-check-label">Richtig</label>

@@ -1,415 +1,434 @@
+/* Allgemeine Stile für die gesamte Seite */
 body {
-    font-family: 'Arial', sans-serif;
-    font-size: 16px;
-    background-color: #f4f6f9;
-    margin: 0;
-    padding: 0;
-    color: #333;
+    font-family: 'Arial', sans-serif; /* Schriftart für die gesamte Seite */
+    font-size: 16px; /* Standard Schriftgröße */
+    background-color: #f4f6f9; /* Hintergrundfarbe */
+    margin: 0; /* Entfernt den Standardabstand */
+    padding: 0; /* Entfernt die Standardauffüllung */
+    color: #333; /* Standard Schriftfarbe */
 }
 
+/* Stile für die Navigationsleiste */
 .navbar {
-    background-color: #007bff;
+    background-color: #007bff; /* Hintergrundfarbe der Navbar */
 }
 
 .navbar-nav .nav-link {
-    color: white;
+    color: white; /* Schriftfarbe der Navbar-Links */
 }
 
 .navbar-nav .nav-item.active .nav-link {
-    font-weight: bold;
+    font-weight: bold; /* Fettgedruckter Text für den aktiven Nav-Item */
 }
 
 .navbar-brand {
-    color: white;
+    color: white; /* Schriftfarbe des Markenlogos */
 }
 
+/* Stile für runde Profilbilder */
 .rounded-profile {
-    border-radius: 50%;
+    border-radius: 50%; /* Runde Profilbilder */
 }
 
+/* Stile für Karten */
 .card {
-    background-color: white;
-    color: #333;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white; /* Hintergrundfarbe der Karten */
+    color: #333; /* Schriftfarbe in Karten */
+    border-radius: 8px; /* Abgerundete Ecken der Karten */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Schatteneffekt */
 }
 
+/* Stile für verschiedene Buttons in den Karten */
 .btn-edit,
 .btn-learn,
 .btn-delete {
-    background-color: #007bff;
-    color: white;
-    border-radius: 5px;
+    background-color: #007bff; /* Hintergrundfarbe */
+    color: white; /* Schriftfarbe */
+    border-radius: 5px; /* Abgerundete Ecken */
 }
 
+/* Stil für die Hinzufügen-Karte */
 .add-card {
-    cursor: pointer;
-    background-color: #e9ecef;
-    border: 2px dashed #007bff;
-    border-radius: 8px;
-    text-align: center;
-    padding: 20px;
+    cursor: pointer; /* Zeigt, dass die Karte anklickbar ist */
+    background-color: #e9ecef; /* Hintergrundfarbe */
+    border: 2px dashed #007bff; /* Gestrichelte Grenze */
+    border-radius: 8px; /* Abgerundete Ecken */
+    text-align: center; /* Zentrierter Text */
+    padding: 20px; /* Innenabstand */
 }
 
+/* Stile für die Kategorienliste */
 #categories {
-    max-height: 500px;
-    overflow-y: auto;
-    border: 1px solid #dee2e6;
-    border-radius: .25rem;
-    background-color: white;
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 500px; /* Maximale Höhe mit Scrollfunktion */
+    overflow-y: auto; /* Vertikales Scrollen bei Überlauf */
+    border: 1px solid #dee2e6; /* Randfarbe */
+    border-radius: .25rem; /* Abgerundete Ecken */
+    background-color: white; /* Hintergrundfarbe */
+    padding: 10px; /* Innenabstand */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Schatteneffekt */
 }
 
+/* Stile für die Fragenliste */
 #questions-list {
-    max-height: 500px;
-    overflow-y: auto;
-    border: 1px solid #dee2e6;
-    border-radius: .25rem;
-    background-color: white;
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 500px; /* Maximale Höhe mit Scrollfunktion */
+    overflow-y: auto; /* Vertikales Scrollen bei Überlauf */
+    border: 1px solid #dee2e6; /* Randfarbe */
+    border-radius: .25rem; /* Abgerundete Ecken */
+    background-color: white; /* Hintergrundfarbe */
+    padding: 10px; /* Innenabstand */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Schatteneffekt */
 }
 
+/* Stile für Listeneinträge */
 .list-group-item {
-    background-color: #fff;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    background-color: #fff; /* Hintergrundfarbe */
+    border: 1px solid #dee2e6; /* Randfarbe */
+    border-radius: 5px; /* Abgerundete Ecken */
+    margin-bottom: 10px; /* Abstand nach unten */
+    padding: 15px; /* Innenabstand */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Schatteneffekt */
 }
 
 .list-group-item:hover {
-    background-color: #f1f1f1;
+    background-color: #f1f1f1; /* Hintergrundfarbe beim Hovern */
 }
 
+/* Modal-Stile */
 .modal-header,
 .modal-body,
 .modal-footer {
-    background-color: #ffffff;
+    background-color: #ffffff; /* Hintergrundfarbe */
 }
 
 .modal-title {
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 20px; /* Schriftgröße */
+    font-weight: bold; /* Fettdruck */
 }
 
+/* Stile für die Antwortcontainer */
 .answers-container {
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 10px;
+    padding: 10px; /* Innenabstand */
+    border-radius: 5px; /* Abgerundete Ecken */
+    margin-top: 10px; /* Abstand nach oben */
 }
-
 
 .answers-container .list-group-item {
-    background-color: #ffffff;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    padding: 10px;
+    background-color: #ffffff; /* Hintergrundfarbe */
+    border: 1px solid #dee2e6; /* Randfarbe */
+    border-radius: 5px; /* Abgerundete Ecken */
+    margin-bottom: 10px; /* Abstand nach unten */
+    padding: 10px; /* Innenabstand */
 }
 
+/* Stile für Fragenitems */
 .question-item {
-    margin-bottom: 20px;
-    padding: 20px;
-    border: 1px solid #add;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Abstand nach unten */
+    padding: 20px; /* Innenabstand */
+    border: 1px solid #add; /* Randfarbe */
+    border-radius: 8px; /* Abgerundete Ecken */
+    background-color: #fff; /* Hintergrundfarbe */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Schatteneffekt */
 }
 
+/* Stile für Antwortformulare */
 .add-answer-form {
-    margin-top: 10px;
+    margin-top: 10px; /* Abstand nach oben */
 }
 
 .question-title {
-    font-weight: bold;
-    font-size: 18px;
-    margin-bottom: 10px;
+    font-weight: bold; /* Fettdruck */
+    font-size: 18px; /* Schriftgröße */
+    margin-bottom: 10px; /* Abstand nach unten */
 }
 
 .question-meta,
 .answer-meta {
-    color: #6c757d;
+    color: #6c757d; /* Schriftfarbe */
 }
 
+/* Stile für Antwortitems */
 .answer-item {
-    border-left: 3px solid #007bff;
-    margin-bottom: 10px;
-    padding-left: 10px;
+    border-left: 3px solid #007bff; /* Linker Rand */
+    margin-bottom: 10px; /* Abstand nach unten */
+    padding-left: 10px; /* Innenabstand links */
 }
 
+/* Stile für den Footer */
 footer {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 0;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
+    background-color: #007bff; /* Hintergrundfarbe */
+    color: white; /* Schriftfarbe */
+    padding: 10px 0; /* Innenabstand */
+    position: fixed; /* Fixiert am unteren Rand */
+    bottom: 0; /* Position am unteren Rand */
+    width: 100%; /* Volle Breite */
+    text-align: center; /* Zentrierter Text */
 }
 
+/* Stil für den Zurücksetzungs-Button */
 #resetData {
-    margin-top: 20px;
-    margin-left: 10px;
-    position: absolute;
-    bottom: 60px;
-    z-index: 10;
+    margin-top: 20px; /* Abstand nach oben */
+    margin-left: 10px; /* Abstand nach links */
+    position: absolute; /* Absolute Positionierung */
+    bottom: 60px; /* Abstand vom unteren Rand */
+    z-index: 10; /* Z-Index für die Stapelreihenfolge */
 }
 
+/* Medienabfragen für kleine Bildschirme */
 @media (max-width: 767px) {
     .card {
-        margin-bottom: 20px;
+        margin-bottom: 20px; /* Abstand nach unten */
     }
 }
 
+/* Stil für den Footer-Abstand */
 .footer-spacing {
-    margin-bottom: 60px;
+    margin-bottom: 60px; /* Abstand nach unten */
 }
 
+/* Stile für korrekte Antworten */
 .correct {
-    color: black;
+    color: black; /* Schriftfarbe */
 }
 
+/* Stil für Text in Gefahr (Fehler) */
 .text-danger {
-    color: #dc3545 !important;
-    font-weight: bold;
+    color: #dc3545 !important; /* Rote Schriftfarbe */
+    font-weight: bold; /* Fettdruck */
 }
 
+/* Stil für Text in Erfolg (Richtig) */
 .text-success {
-    color: #28a745 !important;
-    font-weight: bold;
+    color: #28a745 !important; /* Grüne Schriftfarbe */
+    font-weight: bold; /* Fettdruck */
 }
 
-
-/* Game Mode */
-/* Game Mode */
-
+/* Stile für den Game Mode */
 #questionNav,
 #questionNavEnd {
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+    padding: 20px; /* Innenabstand */
+    border: 1px solid #ddd; /* Randfarbe */
+    border-radius: 5px; /* Abgerundete Ecken */
+    background-color: #f9f9f9; /* Hintergrundfarbe */
 }
 
 #questionNav h5,
 #questionNavEnd h5 {
-    margin-bottom: 15px;
+    margin-bottom: 15px; /* Abstand nach unten */
 }
 
 #questionButtonsContainer,
 #questionButtonsContainerEnd {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
+    display: flex; /* Flexbox-Layout */
+    flex-wrap: wrap; /* Zeilenumbruch bei Überlauf */
+    gap: 5px; /* Abstand zwischen den Buttons */
 }
 
+/* Stile für den Fragencontainer */
 .question-container {
-    margin: 0 auto;
-    max-width: 600px;
+    margin: 0 auto; /* Zentrierung */
+    max-width: 600px; /* Maximale Breite */
 }
 
+/* Stile für die Antwortcontainer */
 .answers-container {
-    display: block;
-    justify-content: space-between;
-    gap: 10px;
+    display: block; /* Block-Layout */
+    justify-content: space-between; /* Gleichmäßige Verteilung */
+    gap: 10px; /* Abstand zwischen den Antworten */
 }
 
+/* Stile für Antwort-Buttons */
 .answer-btn {
-    width: calc(50% - 10px);
-    height: 100px;
-    margin: 5px;
-    padding: 20px;
-    font-size: 16px;
-    border-radius: 10px;
-    transition: background-color 0.3s, color 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    width: calc(50% - 10px); /* Breite der Buttons */
+    height: 100px; /* Höhe der Buttons */
+    margin: 5px; /* Abstand */
+    padding: 20px; /* Innenabstand */
+    font-size: 16px; /* Schriftgröße */
+    border-radius: 10px; /* Abgerundete Ecken */
+    transition: background-color 0.3s, color 0.3s; /* Übergangseffekte */
+    display: flex; /* Flexbox-Layout */
+    align-items: center; /* Zentrierung vertikal */
+    justify-content: center; /* Zentrierung horizontal */
+    text-align: center; /* Zentrierter Text */
 }
 
+/* Stile für korrekte Antwort-Buttons */
 .answer-btn.correct {
-    background-color: green;
-    color: white;
+    background-color: green; /* Hintergrundfarbe */
+    color: white; /* Schriftfarbe */
 }
 
+/* Stile für falsche Antwort-Buttons */
 .answer-btn.wrong {
-    background-color: red;
-    color: white;
+    background-color: red; /* Hintergrundfarbe */
+    color: white; /* Schriftfarbe */
 }
 
+/* Stil für den Fortschrittsbalken */
 .progress {
-    height: 20px;
+    height: 20px; /* Höhe des Balkens */
 }
 
+/* Stil für den Fortschrittsbalken-Übergang */
 .progress-bar {
-    transition: width 1s linear;
+    transition: width 1s linear; /* Übergangseffekt */
 }
 
+/* Stile für die Fragen-Buttons */
 .question-button {
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    border: 1px solid #333;
-    border-radius: 5px;
-    cursor: pointer;
+    width: 40px; /* Breite */
+    height: 40px; /* Höhe */
+    line-height: 40px; /* Zeilenhöhe */
+    text-align: center; /* Zentrierter Text */
+    border: 1px solid #333; /* Randfarbe */
+    border-radius: 5px; /* Abgerundete Ecken */
+    cursor: pointer; /* Zeigt, dass der Button anklickbar ist */
 }
 
+/* Stile für aktive Fragen-Buttons */
 .question-button.active {
-    background-color: #333;
-    color: white;
+    background-color: #333; /* Hintergrundfarbe */
+    color: white; /* Schriftfarbe */
 }
 
+/* Stile für korrekte Fragen-Buttons */
 .question-button.correct {
-    background-color: green;
-    color: white;
+    background-color: green; /* Hintergrundfarbe */
+    color: white; /* Schriftfarbe */
 }
 
+/* Stile für falsche Fragen-Buttons */
 .question-button.wrong {
-    background-color: red;
-    color: white;
+    background-color: red; /* Hintergrundfarbe */
+    color: white; /* Schriftfarbe */
 }
 
+/* Stile für die neueste Punktzahl */
 .latest-score {
-    background-color: #87cefa;
-    /* Leicht blauer Hintergrund */
-    border-left: 5px solid #007bff;
-    /* Blaue Markierung am linken Rand */
+    background-color: #87cefa; /* Hintergrundfarbe */
+    border-left: 5px solid #007bff; /* Linke Markierung */
 }
 
+/* Stile für den Stapel-Auswahl-Button */
 .btn-select-stack {
-    background-color: #6c757d;
-    /* Grau */
-    color: white;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: background-color 0.3s, transform 0.3s;
+    background-color: #6c757d; /* Hintergrundfarbe */
+    color: white; /* Schriftfarbe */
+    font-weight: bold; /* Fettdruck */
+    padding: 10px 20px; /* Innenabstand */
+    border-radius: 5px; /* Abgerundete Ecken */
+    transition: background-color 0.3s, transform 0.3s; /* Übergangseffekte */
 }
 
+/* Hover-Effekt für den Stapel-Auswahl-Button */
 .btn-select-stack:hover {
-    background-color: #5a6268;
-    /* Dunkleres Grau beim Hover */
-    transform: scale(1.05);
+    background-color: #5a6268; /* Dunklere Hintergrundfarbe */
+    transform: scale(1.05); /* Vergrößerung */
 }
 
+/* Fokus-Effekt für den Stapel-Auswahl-Button */
 .btn-select-stack:focus {
-    outline: none;
-    box-shadow: 0 0 10px #5a6268;
+    outline: none; /* Entfernt den Standard-Fokusrahmen */
+    box-shadow: 0 0 10px #5a6268; /* Schattierung */
 }
 
+/* Stile für den ausgewählten Stapel-Auswahl-Button */
 .btn-select-stack.selected {
-    background-color: #007bff;
-    /* Blau */
-    color: white;
-    transform: scale(1.05);
+    background-color: #007bff; /* Hintergrundfarbe */
+    color: white; /* Schriftfarbe */
+    transform: scale(1.05); /* Vergrößerung */
 }
 
+/* Stil für das Antwort-Bild */
+.answer-image {
+    display: none; /* Versteckt das Bild standardmäßig */
+}
 
+/* Stil für das Büroklammer-Icon */
+.btn-link i.fas.fa-paperclip {
+    font-size: 20px; /* Schriftgröße */
+}
 
+/* Stil für den Link-Button */
+.btn-link {
+    padding: 0; /* Entfernt den Innenabstand */
+    border: none; /* Entfernt den Rahmen */
+}
 
-
-
-
-
-/*Anmeldefenster*/
-
+/* Anmeldeformular */
 .custom-btn {
-    background-color: #007bff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    transition: background-color 0.3s, transform 0.3s;
+    background-color: #007bff; /* Hintergrundfarbe */
+    border: none; /* Entfernt den Rahmen */
+    padding: 10px 20px; /* Innenabstand */
+    border-radius: 5px; /* Abgerundete Ecken */
+    color: white; /* Schriftfarbe */
+    font-weight: bold; /* Fettdruck */
+    transition: background-color 0.3s, transform 0.3s; /* Übergangseffekte */
 }
 
 .custom-btn:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
+    background-color: #0056b3; /* Dunklere Hintergrundfarbe beim Hover */
+    transform: scale(1.05); /* Vergrößerung */
 }
 
 .custom-btn:focus {
-    outline: none;
-    box-shadow: 0 0 10px #0056b3;
+    outline: none; /* Entfernt den Standard-Fokusrahmen */
+    box-shadow: 0 0 10px #0056b3; /* Schattierung */
 }
 
+/* Soziale Login-Buttons */
 .social-btn {
-    background-color: #007bff;
-    color: white;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: background-color 0.3s, transform 0.3s;
+    background-color: #007bff; /* Hintergrundfarbe */
+    color: white; /* Schriftfarbe */
+    font-weight: bold; /* Fettdruck */
+    padding: 10px 20px; /* Innenabstand */
+    border-radius: 5px; /* Abgerundete Ecken */
+    transition: background-color 0.3s, transform 0.3s; /* Übergangseffekte */
 }
 
 .social-btn:hover {
-    background-color: #d4d4d4;
-    transform: scale(1.05);
+    background-color: #d4d4d4; /* Hellere Hintergrundfarbe beim Hover */
+    transform: scale(1.05); /* Vergrößerung */
 }
 
+/* Trennlinie für das Login-Formular */
 .div-separator span {
-    background-color: #f4f6f9;
-    padding: 0 10px;
+    background-color: #f4f6f9; /* Hintergrundfarbe */
+    padding: 0 10px; /* Innenabstand */
 }
 
 .div-separator {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    margin: 20px 0;
+    display: flex; /* Flexbox-Layout */
+    align-items: center; /* Vertikale Ausrichtung */
+    text-align: center; /* Zentrierter Text */
+    margin: 20px 0; /* Vertikaler Abstand */
 }
 
 .div-separator::before,
 .div-separator::after {
-    content: '';
-    flex: 1;
-    border-bottom: 1px solid #ddd;
+    content: ''; /* Leerer Inhalt */
+    flex: 1; /* Flex-Verhalten */
+    border-bottom: 1px solid #ddd; /* Unterer Rand */
 }
 
-/* Video */
-
+/* Stile für den Videoabschnitt */
 .section-padding {
-    padding: 60px 0;
+    padding: 60px 0; /* Innenabstand */
 }
 
 .sign-in-form .container {
-    max-width: 1200px;
+    max-width: 1200px; /* Maximale Breite */
 }
 
+/* Stile für den Heldentitel */
 .hero-title {
-    font-size: 36px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 30px;
+    font-size: 36px; /* Schriftgröße */
+    font-weight: bold; /* Fettdruck */
+    color: #333; /* Schriftfarbe */
+    margin-bottom: 30px; /* Abstand nach unten */
 }
 
+/* Stile für Eingabefelder */
 .form-control {
-    border-radius: 5px;
-    box-shadow: none;
-    border: 1px solid #ced4da;
-}
-
-.custom-btn {
-    background-color: #007bff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.custom-btn:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-}
-
-.custom-btn:focus {
-    outline: none;
-    box-shadow: 0 0 10px #0056b3;
+    border-radius: 5px; /* Abgerundete Ecken */
+    box-shadow: none; /* Kein Schatten */
+    border: 1px solid #ced4da; /* Randfarbe */
 }
