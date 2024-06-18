@@ -85,7 +85,7 @@ Backend: Node.js (optional für serverseitige Logik, falls benötigt)
 Sonstiges: Lokaler Speicher (LocalStorage) für die Speicherung von Benutzerdaten und Quizfragen
 
 Mitwirkende
-Namen eintragen.
+Parwis Pooya, Suwataa Jayalingam, Sebastian Wienen, Kerem Atar & Kai Bernstein.
 
 Lizenz
-Dieses Projekt steht unter der MIT-Lizenz...
+Open-Source-Linzenz
